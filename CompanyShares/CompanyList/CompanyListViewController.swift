@@ -36,7 +36,7 @@ class CompanyListViewController: UIViewController {
     }
 }
 
-extension CompanyListViewController {
+private extension CompanyListViewController {
     func navigationBarSetting() {
         self.navigationItem.title = "Company Share"
         navigationController?.navigationBar.barTintColor = UIColor.red
