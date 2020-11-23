@@ -90,8 +90,17 @@ private extension CompanyListViewController {
         let indexPath = self.collectionView.indexPathForItem(at: point)
         
         if let indexPath = indexPath {
-            companies.remove(at: indexPath.row)
-            collectionView.reloadData()
+            let alertController = UIAlertController(title: "Attention!", message: "Remove company?", preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "OK", style: .default) {[weak self] action in
+                self?.companies.remove(at: indexPath.row)
+                self?.collectionView.reloadData()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true, completion: nil)
         } else {
             print("Could not find index path")
         }
