@@ -14,8 +14,8 @@ protocol CompanyListDisplayLogic: class {
 class CompanyListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var collectionView: UICollectionView!
-    
-    private let searchController = UISearchController(searchResultsController: nil)
+    @IBOutlet private weak var searchBar: UISearchBar!
+   
     private var possibleOptions = [Company]()
     private var companies = [Company]()
     
@@ -29,7 +29,7 @@ class CompanyListViewController: UIViewController {
         CompanyListConfigurator.shared.configure(with: self)
         navigationBarSetting()
         delegatesRegistration()
-        searchControllerSetting()
+        searchBarSetting()
         tableCellRegistration()
         collectionCellRegistration()
         longPressSetting()
@@ -49,16 +49,12 @@ private extension CompanyListViewController {
         collectionView.delegate = self
     }
     
-    func searchControllerSetting() {
-        searchController.searchResultsUpdater = self
-        definesPresentationContext = true
-        searchController.obscuresBackgroundDuringPresentation = false
-        tableView.tableHeaderView = searchController.searchBar
-        searchController.searchBar.tintColor = UIColor.white
-        searchController.searchBar.barTintColor = UIColor.red
-        searchController.searchBar.searchTextField.backgroundColor = .white
-        searchController.searchBar.placeholder = "Input ticker or name company"
-        searchController.hidesNavigationBarDuringPresentation = false
+    func searchBarSetting() {
+        searchBar.delegate = self
+        searchBar.tintColor = UIColor.white
+        searchBar.barTintColor = UIColor.red
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.placeholder = "Input ticker or name company"
     }
     
     func tableCellRegistration() {
@@ -107,12 +103,11 @@ private extension CompanyListViewController {
     }
 }
 
-// MARK: - UISearchResultsUpdating
-extension CompanyListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let keyword = searchController.searchBar.text else { return }
-        if keyword != "" {
-            let request = CompanyList.Requst(keyword: keyword)
+// MARK: - UISearchBarDelegate
+extension CompanyListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            let request = CompanyList.Requst(keyword: searchText)
             interactor?.fetchPossibleOptions(request: request)
         } else {
             possibleOptions = [Company]()
@@ -143,15 +138,18 @@ extension CompanyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let company = possibleOptions[indexPath.row]
         companies.append(company)
+        companies = companies.sorted(by: { $0.symbol < $1.symbol })
         collectionView.reloadData()
-        tableView.deselectRow(at: indexPath, animated: true)
+        searchBar.text = ""
+        possibleOptions = []
+        tableView.reloadData()
     }
 }
 
 // MARK: - CompanyListDisplayLogic
 extension CompanyListViewController: CompanyListDisplayLogic {
     func displayPossibleOptions(viewModel: CompanyList.ViewModel) {
-        possibleOptions = viewModel.companies
+        possibleOptions = viewModel.companies.sorted(by: { $0.symbol < $1.symbol })
         DispatchQueue.main.async { self.tableView.reloadData() }
     }
 }

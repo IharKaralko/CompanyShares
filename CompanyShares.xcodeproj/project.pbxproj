@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		43428ADD25698C1700498505 /* CompanyListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43428ADB25698C1700498505 /* CompanyListCollectionViewCell.swift */; };
 		43428ADE25698C1700498505 /* CompanyListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43428ADC25698C1700498505 /* CompanyListCollectionViewCell.xib */; };
+		436EB8D2256BF45200BC1561 /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436EB8D1256BF45200BC1561 /* SelfSizedTableView.swift */; };
 		436FFF7125666AA10093190C /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF7025666AA10093190C /* Client.swift */; };
 		436FFF76256700730093190C /* CompanyListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF75256700730093190C /* CompanyListInteractor.swift */; };
 		436FFF792567010B0093190C /* CompanyListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF782567010B0093190C /* CompanyListPresenter.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		43428ADB25698C1700498505 /* CompanyListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListCollectionViewCell.swift; sourceTree = "<group>"; };
 		43428ADC25698C1700498505 /* CompanyListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyListCollectionViewCell.xib; sourceTree = "<group>"; };
+		436EB8D1256BF45200BC1561 /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		436FFF7025666AA10093190C /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		436FFF75256700730093190C /* CompanyListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListInteractor.swift; sourceTree = "<group>"; };
 		436FFF782567010B0093190C /* CompanyListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListPresenter.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				436FFF7F2567015A0093190C /* CompanyListRouter.swift */,
 				436FFF82256703940093190C /* CompanyListModels.swift */,
 				436FFF85256703C30093190C /* CompanyListConfigurator.swift */,
+				436EB8D1256BF45200BC1561 /* SelfSizedTableView.swift */,
 			);
 			path = CompanyList;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				43BF863F256556E100394FAD /* SceneDelegate.swift in Sources */,
 				43BF86622565A63600394FAD /* Company.swift in Sources */,
 				43428ADD25698C1700498505 /* CompanyListCollectionViewCell.swift in Sources */,
+				436EB8D2256BF45200BC1561 /* SelfSizedTableView.swift in Sources */,
 				436FFF86256703C30093190C /* CompanyListConfigurator.swift in Sources */,
 				43BF865C2565884600394FAD /* CompanyListTableViewCell.swift in Sources */,
 			);
