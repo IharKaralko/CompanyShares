@@ -12,7 +12,7 @@ protocol CompanyListDisplayLogic: class {
 }
 
 class CompanyListViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: SelfSizedTableView!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var searchBar: UISearchBar!
    
@@ -23,6 +23,7 @@ class CompanyListViewController: UIViewController {
     private let itemsPerRow: CGFloat = 2
     
     var interactor: CompanyListBusinessLogic?
+    var router: CompanyListRoutingLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,36 @@ class CompanyListViewController: UIViewController {
         tableCellRegistration()
         collectionCellRegistration()
         longPressSetting()
+        
+//        tableView.layer.cornerRadius = 25
+//        tableView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handle(keyboardShowNotification:)),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+        
     }
 }
 
 private extension CompanyListViewController {
+    @objc
+    func handle(keyboardShowNotification notification: Notification) {
+        if let userInfo = notification.userInfo,
+            // 3
+            let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            tableView.maxHeight = view.frame.height - self.view.safeAreaInsets.top -
+            //view.safeAreaLayoutGuide.topAnchor - //self.topLayoutGuide.length -
+                searchBar.frame.height -
+                keyboardRectangle.height
+           
+            
+        }
+    }
+    
     func navigationBarSetting() {
         self.navigationItem.title = "Company Share"
         navigationController?.navigationBar.barTintColor = UIColor.red
@@ -112,8 +139,22 @@ extension CompanyListViewController: UISearchBarDelegate {
         } else {
             possibleOptions = [Company]()
             tableView.reloadData()
+          //  searchBar.resignFirstResponder()
         }
     }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = false
+            searchBar.text = ""
+        possibleOptions = [Company]()
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -143,6 +184,12 @@ extension CompanyListViewController: UITableViewDelegate {
         searchBar.text = ""
         possibleOptions = []
         tableView.reloadData()
+        searchBar.resignFirstResponder()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 48
     }
 }
 
@@ -192,3 +239,14 @@ extension CompanyListViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegate
+extension CompanyListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath ) {
+        let company = companies[indexPath.row]
+        let companyDetailsVC = CompanyDetailsViewController()
+         companyDetailsVC.symbol = company.symbol
+        navigationController?.pushViewController(companyDetailsVC, animated: true)
+    }
+        
+    }

@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol CompanyListRoutingLogic: class {
+    func routeToCopmanyDetails()
+}

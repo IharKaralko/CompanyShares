@@ -21,13 +21,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="300" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ysK-ci-fdn" customClass="SelfSizedTableView" customModule="CompanyShares" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="100" width="414" height="300"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bem-vi-Fou">
-                    <rect key="frame" x="0.0" y="408" width="414" height="454"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <color key="backgroundColor" red="1" green="0.82940811699999994" blue="0.82077381000000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fZR-x9-pVl">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -35,19 +31,23 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="300" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ysK-ci-fdn" customClass="SelfSizedTableView" customModule="CompanyShares" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="100" width="414" height="300"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pPK-S2-hfO">
                     <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" systemColor="labelColor"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Bem-vi-Fou" secondAttribute="bottom" id="EA6-2q-UQa"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EdE-zL-ZmZ"/>
+                <constraint firstItem="Bem-vi-Fou" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="F9z-8z-KXU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Bem-vi-Fou" secondAttribute="trailing" id="IOG-vr-Grw"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="XbD-8w-1SW"/>
-                <constraint firstItem="Bem-vi-Fou" firstAttribute="top" secondItem="ysK-ci-fdn" secondAttribute="bottom" constant="8" symbolic="YES" id="c6t-Nf-FN4"/>
                 <constraint firstItem="Bem-vi-Fou" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dW9-6g-e4i"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gCb-bV-5EF"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="jZC-T8-dcG"/>
@@ -58,6 +58,9 @@
         </view>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
