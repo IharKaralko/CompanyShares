@@ -21,6 +21,7 @@ class CompanyListViewController: UIViewController {
     
     private let sectionInsets = UIEdgeInsets(top:10.0, left: 10.0, bottom: 20.0, right: 10.0)
     private let itemsPerRow: CGFloat = 2
+    private let heightTableViewRow: CGFloat = 48
     
     var interactor: CompanyListBusinessLogic?
     var router: CompanyListRoutingLogic?
@@ -34,38 +35,30 @@ class CompanyListViewController: UIViewController {
         tableCellRegistration()
         collectionCellRegistration()
         longPressSetting()
-        
-//        tableView.layer.cornerRadius = 25
-//        tableView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handle(keyboardShowNotification:)),
+                                               selector: #selector(adjustForKeyboard),
                                                name: UIResponder.keyboardDidShowNotification,
                                                object: nil)
-        
+        }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 private extension CompanyListViewController {
     @objc
-    func handle(keyboardShowNotification notification: Notification) {
-        if let userInfo = notification.userInfo,
-            // 3
-            let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            tableView.maxHeight = view.frame.height - self.view.safeAreaInsets.top -
-            //view.safeAreaLayoutGuide.topAnchor - //self.topLayoutGuide.length -
-                searchBar.frame.height -
-                keyboardRectangle.height
-           
-            
+    func adjustForKeyboard(notification: Notification) {
+        if let userInfo = notification.userInfo, let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            tableView.maxHeight = view.frame.height - self.view.safeAreaInsets.top - searchBar.frame.height - keyboardRectangle.height
         }
     }
     
     func navigationBarSetting() {
-        self.navigationItem.title = "Company Share"
+        self.navigationItem.title = NSLocalizedString("Company Share", comment: "")
         navigationController?.navigationBar.barTintColor = UIColor.red
     }
     
@@ -81,7 +74,7 @@ private extension CompanyListViewController {
         searchBar.tintColor = UIColor.white
         searchBar.barTintColor = UIColor.red
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.placeholder = "Input ticker or name company"
+        searchBar.placeholder = NSLocalizedString("Input ticker or name company", comment: "")
     }
     
     func tableCellRegistration() {
@@ -113,14 +106,14 @@ private extension CompanyListViewController {
         let indexPath = self.collectionView.indexPathForItem(at: point)
         
         if let indexPath = indexPath {
-            let alertController = UIAlertController(title: "Attention!", message: "Remove company?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
             
-            let confirmAction = UIAlertAction(title: "OK", style: .default) {[weak self] action in
+            let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
                 self?.companies.remove(at: indexPath.row)
                 self?.collectionView.reloadData()
             }
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
             alertController.addAction(cancelAction)
             alertController.addAction(confirmAction)
             self.present(alertController, animated: true, completion: nil)
@@ -139,7 +132,6 @@ extension CompanyListViewController: UISearchBarDelegate {
         } else {
             possibleOptions = [Company]()
             tableView.reloadData()
-          //  searchBar.resignFirstResponder()
         }
     }
     
@@ -148,13 +140,12 @@ extension CompanyListViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            searchBar.showsCancelButton = false
-            searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
         possibleOptions = [Company]()
         tableView.reloadData()
         searchBar.resignFirstResponder()
     }
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -169,7 +160,7 @@ extension CompanyListViewController: UITableViewDataSource {
             fatalError("Cell with identifier: \(identifier) not found")
         }
         let company = possibleOptions[indexPath.row]
-        cell.configure(symbol: company.symbol, name: company.name)
+        cell.configure(company)
         return cell
     }
 }
@@ -185,11 +176,10 @@ extension CompanyListViewController: UITableViewDelegate {
         possibleOptions = []
         tableView.reloadData()
         searchBar.resignFirstResponder()
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 48
+        return heightTableViewRow
     }
 }
 
@@ -235,18 +225,16 @@ extension CompanyListViewController: UICollectionViewDataSource {
             fatalError("Cell with identifier: \(identifier) not found")
         }
         let copmany = companies[indexPath.row]
-        cell.configure(symbol: copmany.symbol, name: copmany.name)
+        cell.configure(copmany)
         return cell
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension CompanyListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let company = companies[indexPath.row]
-        let companyDetailsVC = CompanyDetailsViewController()
-         companyDetailsVC.symbol = company.symbol
-        navigationController?.pushViewController(companyDetailsVC, animated: true)
+        guard let navVC = navigationController else { return }
+        router?.routeToCopmanyDetails(company: company, navVC: navVC)
     }
-        
-    }
+}

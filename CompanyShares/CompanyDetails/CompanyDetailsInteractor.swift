@@ -19,35 +19,40 @@ class CompanyDetailsInteractor {
 
 extension CompanyDetailsInteractor: CompanyDetailsBusinessLogic {
     func fetchDetail(request: CompanyDetails.Requst) {
-        worker?.fetchDetails(keyword: request.symbol) { details, error in
+        worker?.fetchDetails(keyword: request.company.symbol) { [weak self] details, error in
+            guard let name = self?.getNameAndSymbol(request.company) else { return }
+            let response: CompanyDetails.Response
             if let details = details {
-                let response = CompanyDetails.Response(companyResult: CompanyResult(name: request.symbol, priceAndChange: self.getAttributedString(details: details), open: details.open, previosClose: details.previosClose, high: details.high, low: details.low, volume: details.volume))
-                self.presenter?.presentDetails(response: response)
-                
+                guard let price = self?.getAttributedString(details: details) else { return }
+                let companyResult = CompanyResult(priceAndChange: price, open: details.open, previosClose: details.previosClose, high: details.high, low: details.low, volume: details.volume)
+                response = CompanyDetails.Response(name: name, companyResult: companyResult)
+               self?.presenter?.presentDetails(response: response)
+            } else {
+                response = CompanyDetails.Response(name: name, companyResult: nil)
+                self?.presenter?.presentNoData(response: response)
             }
-          //  let response = CompanyDetails.Response(companyResult: details)
-        //   self.presenter?.presentDetails(response: response)
         }
     }
 }
-extension CompanyDetailsInteractor {
+
+private extension CompanyDetailsInteractor {
+    func getNameAndSymbol(_ company: Company) -> String {
+        let nameAndSymbol = company.name + " (" + company.symbol + ")"
+        return nameAndSymbol
+    }
+    
     func getAttributedString(details: Details) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: details.price, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
-        
         var attrs: [NSAttributedString.Key : Any]
-        
         if details.change.first == "-" {
             attrs = [NSAttributedString.Key.foregroundColor : UIColor.red]
         }
         else {
-            attrs = [NSAttributedString.Key.foregroundColor : UIColor.green]
+            attrs = [NSAttributedString.Key.foregroundColor : UIColor.systemGreen]
         }
-        
-        let change = " " + details.change + " (" + details.changePercent + ")"
-        
+        let change = "  " + details.change + " (" + details.changePercent + ")"
         let attributedChange = NSMutableAttributedString(string: change, attributes: attrs)
         attributedString.append(attributedChange)
-        
         return attributedString
     }
 }

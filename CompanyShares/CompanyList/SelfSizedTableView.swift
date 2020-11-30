@@ -23,7 +23,7 @@ class SelfSizedTableView: UITableView {
     }
 }
 
-extension SelfSizedTableView {
+private extension SelfSizedTableView {
     func roundСorners(_ height: CGFloat) {
         self.layer.cornerRadius = height != maxHeight ? 25 : 0
         self.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]

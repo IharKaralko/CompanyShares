@@ -8,11 +8,10 @@
 import Foundation
 
 class Client {
-    static let apiKey = "EQKMDVTR5WDOSTFU"//"c3856383367f49dbefe2a7b747cc57d0"
+    static let apiKey = "EQKMDVTR5WDOSTFU"
     
     enum Endpoints {
         static let base = "https://www.alphavantage.co/query?"
-        //"https://financialmodelingprep.com/api/v3/"
         static let apiKeyParam = "&apikey=\(Client.apiKey)"
         
         case searchCompany
@@ -21,13 +20,14 @@ class Client {
         func getURL(keyword: String) -> URL? {
             switch self {
             case .searchCompany:
-                let stringValue = Endpoints.base + "function=SYMBOL_SEARCH&keywords=\(keyword)"//"&limit=50"
+                let stringValue = Endpoints.base + "function=SYMBOL_SEARCH&keywords=\(keyword)"
                     + Endpoints.apiKeyParam
                 return URL(string: stringValue)
             case .getDetails:
-                let stringValue = Endpoints.base + "function=GLOBAL_QUOTE&symbol=\(keyword)"//"&limit=50"
+                let stringValue = Endpoints.base + "function=GLOBAL_QUOTE&symbol=\(keyword)"
                     + Endpoints.apiKeyParam
-                return URL(string: stringValue)            }
+                return URL(string: stringValue)
+            }
         }
     }
     

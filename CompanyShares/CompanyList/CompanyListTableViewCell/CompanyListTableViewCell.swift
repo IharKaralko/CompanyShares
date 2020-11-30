@@ -12,8 +12,7 @@ class CompanyListTableViewCell: UITableViewCell {
 }
 
 extension CompanyListTableViewCell {
-    func configure(symbol: String, name: String?) {
-        let companyName = name ?? ""
-        nameLabel.text = symbol + " " + "(" + companyName + ")"
+    func configure(_ company: Company) {
+        nameLabel.text = company.symbol + " " + "(" + company.name + ")"
     }
 }

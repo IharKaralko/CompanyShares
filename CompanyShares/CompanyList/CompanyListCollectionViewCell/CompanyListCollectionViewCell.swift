@@ -19,8 +19,8 @@ class CompanyListCollectionViewCell: UICollectionViewCell {
     }
 }
 extension CompanyListCollectionViewCell {
-    func configure(symbol: String, name: String?) {
-        symbolLabel.text = symbol
-        nameLabel.text = name
+    func configure(_ company: Company) {
+        symbolLabel.text = company.symbol
+        nameLabel.text = company.name
     }
 }

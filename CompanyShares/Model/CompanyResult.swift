@@ -8,7 +8,6 @@
 import Foundation
 
 struct CompanyResult {
-    let name: String
     let priceAndChange: NSMutableAttributedString
     let open: String
     let previosClose: String

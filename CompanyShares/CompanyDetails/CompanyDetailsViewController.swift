@@ -9,6 +9,7 @@ import UIKit
 
 protocol CompanyDetailsDisplayLogic: class {
     func displayDetails(viewModel: CompanyDetails.ViewModel)
+    func displayNoData(viewModel: CompanyDetails.ViewModel)
 }
 
 class CompanyDetailsViewController: UIViewController {
@@ -21,7 +22,7 @@ class CompanyDetailsViewController: UIViewController {
     @IBOutlet private weak var volumeLabel: UILabel!
     
     var interactor: CompanyDetailsBusinessLogic?
-    var symbol: String?
+    var company: Company?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,24 +31,32 @@ class CompanyDetailsViewController: UIViewController {
     }
 }
 
-extension CompanyDetailsViewController {
+private extension CompanyDetailsViewController {
     func showDetails() {
-        guard let symbol = symbol else { return }
-        let request = CompanyDetails.Requst(symbol: symbol)
+        guard let company = company else { return }
+        let request = CompanyDetails.Requst(company: company)
         interactor?.fetchDetail(request: request)
     }
 }
 
 extension CompanyDetailsViewController: CompanyDetailsDisplayLogic {
+    func displayNoData(viewModel: CompanyDetails.ViewModel) {
+        DispatchQueue.main.async {
+            self.nameLabel.text = viewModel.name
+            self.priceAndChangeLabel.text = NSLocalizedString("No data available", comment: "")
+        }
+    }
+    
     func displayDetails(viewModel: CompanyDetails.ViewModel) {
-        DispatchQueue.main.async {[weak self] in
-            self?.nameLabel.text = viewModel.companyResult.name
-            self?.priceAndChangeLabel.attributedText = viewModel.companyResult.priceAndChange
-            self?.openLabel.text = viewModel.companyResult.open
-            self?.previosCloseLabel.text = viewModel.companyResult.previosClose
-            self?.highLabel.text = viewModel.companyResult.high
-            self?.lowLabel.text = viewModel.companyResult.low
-            self?.volumeLabel.text = viewModel.companyResult.volume
+        DispatchQueue.main.async {
+            guard let companyResult = viewModel.companyResult else { return }
+            self.nameLabel.text = viewModel.name
+            self.priceAndChangeLabel.attributedText = companyResult.priceAndChange
+            self.openLabel.text = companyResult.open
+            self.previosCloseLabel.text = companyResult.previosClose
+            self.highLabel.text = companyResult.high
+            self.lowLabel.text = companyResult.low
+            self.volumeLabel.text = companyResult.volume
         }
     }
 }

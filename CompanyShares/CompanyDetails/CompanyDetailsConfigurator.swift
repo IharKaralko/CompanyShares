@@ -15,7 +15,7 @@ class CompanyDetailsConfigurator {
         let interactor = CompanyDetailsInteractor()
         let presenter = CompanyDetailsPresenter()
         let worker = CompanyDetailsWorker()
-
+        
         viewController.interactor = interactor
         interactor.presenter = presenter
         interactor.worker = worker

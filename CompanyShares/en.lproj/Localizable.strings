@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  CompanyShares
+
+  Created by Ihar_Karalko on 11/29/20.
+  
+*/
+"Company Share" = "Company Share";
+"Input ticker or name company" = "Input ticker or name company";
+"Attention!" = "Attention!!";
+"Remove company?" = "Remove company?";
+"OK" = "ОК";
+"Cancel" = "Cancel";
+"No data available" = "No data available";
+"Open:" = "Open:";
+"Previos close:" = "Previos close:";
+"High:" = "High:";
+"Low:" = "Low:";
+"Volume:" = "Volume:";

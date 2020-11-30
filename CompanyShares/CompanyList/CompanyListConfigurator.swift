@@ -15,8 +15,10 @@ class CompanyListConfigurator {
         let interactor = CompanyListInteractor()
         let presenter = CompanyListPresenter()
         let worker = CompanyListWorker()
+        let router = CompanyListRouter()
         
         viewController.interactor = interactor
+        viewController.router = router
         interactor.presenter = presenter
         interactor.worker = worker
         presenter.viewController = viewController
