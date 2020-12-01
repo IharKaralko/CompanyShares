@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -10,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompanyListViewController" customModule="CompanyShares" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="Bem-vi-Fou" id="q0i-nM-y1X"/>
+                <outlet property="containerView" destination="BTP-c3-EMS" id="Gx2-ns-4bK"/>
                 <outlet property="searchBar" destination="pPK-S2-hfO" id="Kbr-Kf-RWo"/>
                 <outlet property="tableView" destination="ysK-ci-fdn" id="s5x-lq-fLJ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="yCj-38-1X5"/>
@@ -21,19 +22,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bem-vi-Fou">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTP-c3-EMS">
                     <rect key="frame" x="0.0" y="100" width="414" height="762"/>
-                    <color key="backgroundColor" red="1" green="0.82940811699999994" blue="0.82077381000000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fZR-x9-pVl">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="300" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ysK-ci-fdn" customClass="SelfSizedTableView" customModule="CompanyShares" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="100" width="414" height="300"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.91738175590000004" green="1" blue="0.75043141400000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pPK-S2-hfO">
                     <rect key="frame" x="0.0" y="44" width="414" height="56"/>
@@ -43,16 +38,16 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="labelColor"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Bem-vi-Fou" secondAttribute="bottom" id="EA6-2q-UQa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BTP-c3-EMS" secondAttribute="trailing" id="2Fc-16-1ys"/>
+                <constraint firstItem="BTP-c3-EMS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="603-KA-mxJ"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EdE-zL-ZmZ"/>
-                <constraint firstItem="Bem-vi-Fou" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="F9z-8z-KXU"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Bem-vi-Fou" secondAttribute="trailing" id="IOG-vr-Grw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="BTP-c3-EMS" secondAttribute="bottom" id="N9u-4f-fop"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="XbD-8w-1SW"/>
-                <constraint firstItem="Bem-vi-Fou" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dW9-6g-e4i"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gCb-bV-5EF"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="jZC-T8-dcG"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="m2H-v9-3C2"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ysK-ci-fdn" secondAttribute="trailing" id="nuv-3C-LYv"/>
+                <constraint firstItem="BTP-c3-EMS" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="tBx-kV-7Cl"/>
             </constraints>
             <point key="canvasLocation" x="-61" y="114"/>
         </view>

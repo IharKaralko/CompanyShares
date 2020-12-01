@@ -13,7 +13,8 @@ protocol CompanyListDisplayLogic: class {
 
 class CompanyListViewController: UIViewController {
     @IBOutlet private weak var tableView: SelfSizedTableView!
-    @IBOutlet private weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet private weak var searchBar: UISearchBar!
    
     private var possibleOptions = [Company]()
@@ -33,8 +34,9 @@ class CompanyListViewController: UIViewController {
         delegatesRegistration()
         searchBarSetting()
         tableCellRegistration()
-        collectionCellRegistration()
-        longPressSetting()
+        setChild()
+//        collectionCellRegistration()
+//        longPressSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +52,25 @@ class CompanyListViewController: UIViewController {
 }
 
 private extension CompanyListViewController {
+    func setChild() {
+        let controller = CompanyCollectionViewController()
+        controller.didMove(toParent: self)
+        addChild(controller)
+            controller.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(controller.view)
+
+            NSLayoutConstraint.activate([
+                controller.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                controller.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+                controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            ])
+
+            controller.didMove(toParent: self)    }
+    
+    
+    
     @objc
     func adjustForKeyboard(notification: Notification) {
         if let userInfo = notification.userInfo, let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -65,8 +86,8 @@ private extension CompanyListViewController {
     func delegatesRegistration() {
         tableView.dataSource = self
         tableView.delegate = self
-        collectionView.dataSource = self
-        collectionView.delegate = self
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
     }
     
     func searchBarSetting() {
@@ -83,44 +104,44 @@ private extension CompanyListViewController {
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
     
-    func collectionCellRegistration() {
-        let identifier = String(describing: CompanyListCollectionViewCell.self)
-        let nib = UINib.init(nibName: identifier, bundle: nil)
-        self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
-    }
+//    func collectionCellRegistration() {
+//        let identifier = String(describing: CompanyListCollectionViewCell.self)
+//        let nib = UINib.init(nibName: identifier, bundle: nil)
+//        self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
+//    }
     
-    func longPressSetting(){
-        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
-        longPressGR.minimumPressDuration = 0.5
-        longPressGR.delaysTouchesBegan = true
-        self.collectionView.addGestureRecognizer(longPressGR)
-    }
+//    func longPressSetting(){
+//        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
+//        longPressGR.minimumPressDuration = 0.5
+//        longPressGR.delaysTouchesBegan = true
+//        self.collectionView.addGestureRecognizer(longPressGR)
+//    }
     
-    @objc
-    func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
-        if longPressGR.state != .ended {
-            return
-        }
-        
-        let point = longPressGR.location(in: self.collectionView)
-        let indexPath = self.collectionView.indexPathForItem(at: point)
-        
-        if let indexPath = indexPath {
-            let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
-            
-            let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
-                self?.companies.remove(at: indexPath.row)
-                self?.collectionView.reloadData()
-            }
-            
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
-            alertController.addAction(cancelAction)
-            alertController.addAction(confirmAction)
-            self.present(alertController, animated: true, completion: nil)
-        } else {
-            print("Could not find index path")
-        }
-    }
+//    @objc
+//    func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
+//        if longPressGR.state != .ended {
+//            return
+//        }
+//
+//        let point = longPressGR.location(in: self.collectionView)
+//        let indexPath = self.collectionView.indexPathForItem(at: point)
+//
+//        if let indexPath = indexPath {
+//            let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
+//
+//            let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
+//                self?.companies.remove(at: indexPath.row)
+//                self?.collectionView.reloadData()
+//            }
+//
+//            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+//            alertController.addAction(cancelAction)
+//            alertController.addAction(confirmAction)
+//            self.present(alertController, animated: true, completion: nil)
+//        } else {
+//            print("Could not find index path")
+//        }
+//    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -171,7 +192,7 @@ extension CompanyListViewController: UITableViewDelegate {
         let company = possibleOptions[indexPath.row]
         companies.append(company)
         companies = companies.sorted(by: { $0.symbol < $1.symbol })
-        collectionView.reloadData()
+     //   collectionView.reloadData()
         searchBar.text = ""
         possibleOptions = []
         tableView.reloadData()

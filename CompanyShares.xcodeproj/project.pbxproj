@@ -16,6 +16,8 @@
 		4346E9B1256FA42F00BF8B05 /* CompanyDetailsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4346E9B0256FA42F00BF8B05 /* CompanyDetailsConfigurator.swift */; };
 		4346E9B8257033A700BF8B05 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4346E9B7257033A700BF8B05 /* Details.swift */; };
 		4346E9BB257036B200BF8B05 /* DetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4346E9BA257036B200BF8B05 /* DetailsResponse.swift */; };
+		435D7897257692F100A3385E /* CompanyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D7895257692F100A3385E /* CompanyCollectionViewController.swift */; };
+		435D7898257692F100A3385E /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435D7896257692F100A3385E /* CompanyCollectionViewController.xib */; };
 		4363E388256E5EF200345690 /* CompaniesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363E387256E5EF200345690 /* CompaniesResponse.swift */; };
 		4363E38C256E99C200345690 /* CompanyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */; };
 		4363E38F256E9A1200345690 /* CompanyDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */; };
@@ -50,6 +52,8 @@
 		4346E9B0256FA42F00BF8B05 /* CompanyDetailsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsConfigurator.swift; sourceTree = "<group>"; };
 		4346E9B7257033A700BF8B05 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		4346E9BA257036B200BF8B05 /* DetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsResponse.swift; sourceTree = "<group>"; };
+		435D7895257692F100A3385E /* CompanyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionViewController.swift; sourceTree = "<group>"; };
+		435D7896257692F100A3385E /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyCollectionViewController.xib; sourceTree = "<group>"; };
 		4363E387256E5EF200345690 /* CompaniesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesResponse.swift; sourceTree = "<group>"; };
 		4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsViewController.swift; sourceTree = "<group>"; };
 		4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyDetailsViewController.xib; sourceTree = "<group>"; };
@@ -109,6 +113,15 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		435D7894257692B300A3385E /* CompanyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				435D7895257692F100A3385E /* CompanyCollectionViewController.swift */,
+				435D7896257692F100A3385E /* CompanyCollectionViewController.xib */,
+			);
+			path = CompanyCollection;
+			sourceTree = "<group>";
+		};
 		4363E38A256E992800345690 /* CompanyDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +172,7 @@
 		43BF863B256556E100394FAD /* CompanyShares */ = {
 			isa = PBXGroup;
 			children = (
+				435D7894257692B300A3385E /* CompanyCollection */,
 				43939057257104AA003E8675 /* Model */,
 				4363E38A256E992800345690 /* CompanyDetails */,
 				436FFF6F25666A660093190C /* Service */,
@@ -264,6 +278,7 @@
 				43986F4B2573FFA900EF002D /* Localizable.strings in Resources */,
 				43BF865D2565884600394FAD /* CompanyListTableViewCell.xib in Resources */,
 				4363E397256EA1BE00345690 /* Assets.xcassets in Resources */,
+				435D7898257692F100A3385E /* CompanyCollectionViewController.xib in Resources */,
 				43BF8649256556E200394FAD /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +292,7 @@
 			files = (
 				436FFF792567010B0093190C /* CompanyListPresenter.swift in Sources */,
 				43BF8641256556E100394FAD /* CompanyListViewController.swift in Sources */,
+				435D7897257692F100A3385E /* CompanyCollectionViewController.swift in Sources */,
 				436FFF802567015A0093190C /* CompanyListRouter.swift in Sources */,
 				43BF863D256556E100394FAD /* AppDelegate.swift in Sources */,
 				4346E9B8257033A700BF8B05 /* Details.swift in Sources */,
