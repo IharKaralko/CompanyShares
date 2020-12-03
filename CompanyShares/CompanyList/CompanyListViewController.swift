@@ -11,17 +11,17 @@ protocol CompanyListDisplayLogic: class {
     func displayPossibleOptions(viewModel: CompanyList.ViewModel)
 }
 
+protocol CompanyListRouterProtocol: class {
+    func routToDetails(company: Company)
+}
+
 class CompanyListViewController: UIViewController {
     @IBOutlet private weak var tableView: SelfSizedTableView!
-    
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var searchBar: UISearchBar!
    
     private var possibleOptions = [Company]()
-    private var companies = [Company]()
-    
-    private let sectionInsets = UIEdgeInsets(top:10.0, left: 10.0, bottom: 20.0, right: 10.0)
-    private let itemsPerRow: CGFloat = 2
+    private var childViewController: ChildViewControllerProtocol?
     private let heightTableViewRow: CGFloat = 48
     
     var interactor: CompanyListBusinessLogic?
@@ -35,8 +35,6 @@ class CompanyListViewController: UIViewController {
         searchBarSetting()
         tableCellRegistration()
         setChild()
-//        collectionCellRegistration()
-//        longPressSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +42,7 @@ class CompanyListViewController: UIViewController {
                                                selector: #selector(adjustForKeyboard),
                                                name: UIResponder.keyboardDidShowNotification,
                                                object: nil)
-        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -53,23 +51,23 @@ class CompanyListViewController: UIViewController {
 
 private extension CompanyListViewController {
     func setChild() {
-        let controller = CompanyCollectionViewController()
-        controller.didMove(toParent: self)
-        addChild(controller)
-            controller.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        containerView.addSubview(controller.view)
+       let child = CompanyCollectionViewController()
+        child.routerDelegate = self
+        child.didMove(toParent: self)
+        addChild(child)
+        child.view.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(child.view)
 
             NSLayoutConstraint.activate([
-                controller.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-                controller.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
-                controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+                child.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                child.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                child.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+                child.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             ])
 
-            controller.didMove(toParent: self)    }
-    
-    
+        child.didMove(toParent: self)
+        childViewController = child
+    }
     
     @objc
     func adjustForKeyboard(notification: Notification) {
@@ -79,15 +77,16 @@ private extension CompanyListViewController {
     }
     
     func navigationBarSetting() {
-        self.navigationItem.title = NSLocalizedString("Company Share", comment: "")
+        navigationItem.title = NSLocalizedString("Company Share", comment: "")
         navigationController?.navigationBar.barTintColor = UIColor.red
+        navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = UIColor.black
+        
     }
     
     func delegatesRegistration() {
         tableView.dataSource = self
         tableView.delegate = self
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
     }
     
     func searchBarSetting() {
@@ -103,45 +102,7 @@ private extension CompanyListViewController {
         let nib = UINib.init(nibName: identifier, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
-    
-//    func collectionCellRegistration() {
-//        let identifier = String(describing: CompanyListCollectionViewCell.self)
-//        let nib = UINib.init(nibName: identifier, bundle: nil)
-//        self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
-//    }
-    
-//    func longPressSetting(){
-//        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
-//        longPressGR.minimumPressDuration = 0.5
-//        longPressGR.delaysTouchesBegan = true
-//        self.collectionView.addGestureRecognizer(longPressGR)
-//    }
-    
-//    @objc
-//    func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
-//        if longPressGR.state != .ended {
-//            return
-//        }
-//
-//        let point = longPressGR.location(in: self.collectionView)
-//        let indexPath = self.collectionView.indexPathForItem(at: point)
-//
-//        if let indexPath = indexPath {
-//            let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
-//
-//            let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
-//                self?.companies.remove(at: indexPath.row)
-//                self?.collectionView.reloadData()
-//            }
-//
-//            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
-//            alertController.addAction(cancelAction)
-//            alertController.addAction(confirmAction)
-//            self.present(alertController, animated: true, completion: nil)
-//        } else {
-//            print("Could not find index path")
-//        }
-//    }
+
 }
 
 // MARK: - UISearchBarDelegate
@@ -157,7 +118,7 @@ extension CompanyListViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            self.searchBar.showsCancelButton = true
+        self.searchBar.showsCancelButton = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -190,9 +151,8 @@ extension CompanyListViewController: UITableViewDataSource {
 extension CompanyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let company = possibleOptions[indexPath.row]
-        companies.append(company)
-        companies = companies.sorted(by: { $0.symbol < $1.symbol })
-     //   collectionView.reloadData()
+        childViewController?.addCompany(company: company)
+        childViewController?.reloadCompaniesList()
         searchBar.text = ""
         possibleOptions = []
         tableView.reloadData()
@@ -212,49 +172,8 @@ extension CompanyListViewController: CompanyListDisplayLogic {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-extension CompanyListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
-        let heighPerItem = 3 * widthPerItem  / 4
-        
-        return CGSize(width: widthPerItem, height: heighPerItem)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-extension CompanyListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return companies.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = String(describing: CompanyListCollectionViewCell.self)
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? CompanyListCollectionViewCell else {
-            fatalError("Cell with identifier: \(identifier) not found")
-        }
-        let copmany = companies[indexPath.row]
-        cell.configure(copmany)
-        return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension CompanyListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let company = companies[indexPath.row]
+extension CompanyListViewController: CompanyListRouterProtocol {
+    func routToDetails(company: Company) {
         guard let navVC = navigationController else { return }
         router?.routeToCopmanyDetails(company: company, navVC: navVC)
     }

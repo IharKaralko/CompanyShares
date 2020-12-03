@@ -7,21 +7,19 @@
 
 import UIKit
 
+protocol ChildViewControllerProtocol: class {
+    var routerDelegate: CompanyListRouterProtocol? { set get }
+    func addCompany(company: Company)
+    func reloadCompaniesList()
+}
+
 class CompanyCollectionViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
-    private var companies = [Company(symbol: "aa", name: "AAAA"),
-                             Company(symbol: "aa", name: "AAAA"),
-                             Company(symbol: "aa", name: "AAAA"),
-    Company(symbol: "aa", name: "AAAA"),
-        Company(symbol: "aa", name: "AAAA"),
-        Company(symbol: "aa", name: "AAAA"),
-                                 Company(symbol: "aa", name: "AAAA"),
-                                 Company(symbol: "aa", name: "AAAA"),
-        Company(symbol: "aa", name: "AAAA"),
-            Company(symbol: "aa", name: "AAAA")    ]
-    
+    private var companies = [Company]()
     private let sectionInsets = UIEdgeInsets(top:10.0, left: 10.0, bottom: 20.0, right: 10.0)
     private let itemsPerRow: CGFloat = 2
+   
+    var routerDelegate: CompanyListRouterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +28,7 @@ class CompanyCollectionViewController: UIViewController {
         longPressSetting()
     }
 }
+
 private extension CompanyCollectionViewController {
     func delegatesRegistration() {
         collectionView.dataSource = self
@@ -37,7 +36,7 @@ private extension CompanyCollectionViewController {
     }
     
     func collectionCellRegistration() {
-        let identifier = String(describing: CompanyListCollectionViewCell.self)
+        let identifier = String(describing: CompanyCollectionViewCell.self)
         let nib = UINib.init(nibName: identifier, bundle: nil)
         self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
     }
@@ -74,8 +73,8 @@ private extension CompanyCollectionViewController {
             print("Could not find index path")
         }
     }
-    
 }
+
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CompanyCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
@@ -105,8 +104,8 @@ extension CompanyCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = String(describing: CompanyListCollectionViewCell.self)
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? CompanyListCollectionViewCell else {
+        let identifier = String(describing: CompanyCollectionViewCell.self)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? CompanyCollectionViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
         let copmany = companies[indexPath.row]
@@ -118,9 +117,20 @@ extension CompanyCollectionViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension CompanyCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Select company")
-      //  let company = companies[indexPath.row]
-       // guard let navVC = navigationController else { return }
-       // router?.routeToCopmanyDetails(company: company, navVC: navVC)
+        let company = companies[indexPath.row]
+        routerDelegate?.routToDetails(company: company)
+    }
+}
+
+extension CompanyCollectionViewController: ChildViewControllerProtocol {
+    func addCompany(company: Company) {
+        if !companies.contains(company) {
+            companies.append(company)
+            companies = companies.sorted(by: { $0.symbol < $1.symbol })
+        }
+    }
+    
+    func reloadCompaniesList() {
+        collectionView.reloadData()
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Company: Decodable {
+struct Company: Decodable, Equatable {
     let symbol: String
     let name: String
     
