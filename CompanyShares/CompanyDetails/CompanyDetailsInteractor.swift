@@ -9,29 +9,34 @@ import UIKit
 
 protocol CompanyDetailsBusinessLogic: class {
     func fetchDetail(request: CompanyDetails.Requst)
+    func removeCompany(company: Company)
 }
 
 class CompanyDetailsInteractor {
     var presenter: CompanyDetailsPresentationLogic?
     var worker: CompanyDetailsWorkingLogic?
-    
 }
 
+// MARK: - CompanyDetailsBusinessLogic
 extension CompanyDetailsInteractor: CompanyDetailsBusinessLogic {
     func fetchDetail(request: CompanyDetails.Requst) {
+        let name = getNameAndSymbol(request.company)
         worker?.fetchDetails(keyword: request.company.symbol) { [weak self] details, error in
-            guard let name = self?.getNameAndSymbol(request.company) else { return }
             let response: CompanyDetails.Response
             if let details = details {
                 guard let price = self?.getAttributedString(details: details) else { return }
                 let companyResult = CompanyResult(priceAndChange: price, open: details.open, previosClose: details.previosClose, high: details.high, low: details.low, volume: details.volume)
                 response = CompanyDetails.Response(name: name, companyResult: companyResult)
-               self?.presenter?.presentDetails(response: response)
+                self?.presenter?.presentDetails(response: response)
             } else {
                 response = CompanyDetails.Response(name: name, companyResult: nil)
                 self?.presenter?.presentNoData(response: response)
             }
         }
+    }
+    
+    func removeCompany(company: Company) {
+        StorageManager.removeCompany(company)
     }
 }
 

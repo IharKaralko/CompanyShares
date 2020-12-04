@@ -6,23 +6,32 @@
 //
 
 import UIKit
+import RealmSwift
+
+protocol CompanyCollectionDisplayLogic: class {
+    func displayCompany(viewModel: CompanyCollection.ViewModel)
+    func reloadCompaniesList()
+}
 
 protocol ChildViewControllerProtocol: class {
     var routerDelegate: CompanyListRouterProtocol? { set get }
     func addCompany(company: Company)
-    func reloadCompaniesList()
 }
 
 class CompanyCollectionViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
-    private var companies = [Company]()
+    private var companies: Results<Company>!
     private let sectionInsets = UIEdgeInsets(top:10.0, left: 10.0, bottom: 20.0, right: 10.0)
     private let itemsPerRow: CGFloat = 2
-   
+    
+    var interactor: CompanyCollectionBusinessLogic?
     var routerDelegate: CompanyListRouterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        CompanyCollectionConfigurator.shared.configure(with: self)
+        interactor?.loadCompanyList()
+        interactor?.setObserver()
         delegatesRegistration()
         collectionCellRegistration()
         longPressSetting()
@@ -41,7 +50,7 @@ private extension CompanyCollectionViewController {
         self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
     }
     
-    func longPressSetting(){
+    func longPressSetting() {
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
         longPressGR.delaysTouchesBegan = true
@@ -61,8 +70,8 @@ private extension CompanyCollectionViewController {
             let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
             
             let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
-                self?.companies.remove(at: indexPath.row)
-                self?.collectionView.reloadData()
+                guard let company = self?.companies[indexPath.row] else { return }
+                self?.interactor?.removeCompany(company: company)
             }
             
             let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
@@ -122,12 +131,18 @@ extension CompanyCollectionViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - ChildViewControllerProtocol
 extension CompanyCollectionViewController: ChildViewControllerProtocol {
     func addCompany(company: Company) {
-        if !companies.contains(company) {
-            companies.append(company)
-            companies = companies.sorted(by: { $0.symbol < $1.symbol })
-        }
+        interactor?.addCompany(company: company)
+    }
+}
+
+// MARK: - CompanyCollectionDisplayLogic
+extension CompanyCollectionViewController: CompanyCollectionDisplayLogic {
+    func displayCompany(viewModel: CompanyCollection.ViewModel) {
+        companies = viewModel.companies
+        collectionView.reloadData()
     }
     
     func reloadCompaniesList() {

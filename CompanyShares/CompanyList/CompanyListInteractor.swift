@@ -16,6 +16,7 @@ class CompanyListInteractor {
     var worker: CompanyListWorkingLogic?
 }
 
+// MARK: - CompanyListBusinessLogic
 extension CompanyListInteractor: CompanyListBusinessLogic {
     func fetchPossibleOptions(request: CompanyList.Requst) {
         worker?.fetchCompanies(keyword: request.keyword) { companies, error in

@@ -22,6 +22,11 @@
 		4363E38C256E99C200345690 /* CompanyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */; };
 		4363E38F256E9A1200345690 /* CompanyDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */; };
 		4363E397256EA1BE00345690 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4363E396256EA1BE00345690 /* Assets.xcassets */; };
+		436DE7C32578F2E500FB02B8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C22578F2E500FB02B8 /* StorageManager.swift */; };
+		436DE7C725795C1400FB02B8 /* CompanyCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C625795C1400FB02B8 /* CompanyCollectionInteractor.swift */; };
+		436DE7CA25795C4000FB02B8 /* CompanyCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C925795C4000FB02B8 /* CompanyCollectionPresenter.swift */; };
+		436DE7CD25795C7700FB02B8 /* CompanyCollectionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7CC25795C7700FB02B8 /* CompanyCollectionModels.swift */; };
+		436DE7D025795C9F00FB02B8 /* CompanyCollectionConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7CF25795C9F00FB02B8 /* CompanyCollectionConfigurator.swift */; };
 		436EB8D2256BF45200BC1561 /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436EB8D1256BF45200BC1561 /* SelfSizedTableView.swift */; };
 		436FFF7125666AA10093190C /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF7025666AA10093190C /* Client.swift */; };
 		436FFF76256700730093190C /* CompanyListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF75256700730093190C /* CompanyListInteractor.swift */; };
@@ -60,6 +65,11 @@
 		4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsViewController.swift; sourceTree = "<group>"; };
 		4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyDetailsViewController.xib; sourceTree = "<group>"; };
 		4363E396256EA1BE00345690 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		436DE7C22578F2E500FB02B8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		436DE7C625795C1400FB02B8 /* CompanyCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionInteractor.swift; sourceTree = "<group>"; };
+		436DE7C925795C4000FB02B8 /* CompanyCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionPresenter.swift; sourceTree = "<group>"; };
+		436DE7CC25795C7700FB02B8 /* CompanyCollectionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionModels.swift; sourceTree = "<group>"; };
+		436DE7CF25795C9F00FB02B8 /* CompanyCollectionConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionConfigurator.swift; sourceTree = "<group>"; };
 		436EB8D1256BF45200BC1561 /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		436FFF7025666AA10093190C /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		436FFF75256700730093190C /* CompanyListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListInteractor.swift; sourceTree = "<group>"; };
@@ -123,6 +133,10 @@
 				43428ADA25698BA600498505 /* CompanyCollectionViewCell */,
 				435D7895257692F100A3385E /* CompanyCollectionViewController.swift */,
 				435D7896257692F100A3385E /* CompanyCollectionViewController.xib */,
+				436DE7C625795C1400FB02B8 /* CompanyCollectionInteractor.swift */,
+				436DE7C925795C4000FB02B8 /* CompanyCollectionPresenter.swift */,
+				436DE7CC25795C7700FB02B8 /* CompanyCollectionModels.swift */,
+				436DE7CF25795C9F00FB02B8 /* CompanyCollectionConfigurator.swift */,
 			);
 			path = CompanyCollection;
 			sourceTree = "<group>";
@@ -139,6 +153,14 @@
 				4346E9B0256FA42F00BF8B05 /* CompanyDetailsConfigurator.swift */,
 			);
 			path = CompanyDetails;
+			sourceTree = "<group>";
+		};
+		436DE7C12578F27500FB02B8 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				436DE7C22578F2E500FB02B8 /* StorageManager.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		436FFF6F25666A660093190C /* Service */ = {
@@ -178,10 +200,11 @@
 			isa = PBXGroup;
 			children = (
 				435D7894257692B300A3385E /* CompanyCollection */,
-				43939057257104AA003E8675 /* Model */,
 				4363E38A256E992800345690 /* CompanyDetails */,
-				436FFF6F25666A660093190C /* Service */,
 				43BF865225655B0F00394FAD /* CompanyList */,
+				43939057257104AA003E8675 /* Model */,
+				436FFF6F25666A660093190C /* Service */,
+				436DE7C12578F27500FB02B8 /* Storage */,
 				43BF863C256556E100394FAD /* AppDelegate.swift */,
 				43BF863E256556E100394FAD /* SceneDelegate.swift */,
 				43BF8647256556E200394FAD /* LaunchScreen.storyboard */,
@@ -305,9 +328,11 @@
 				43BF8641256556E100394FAD /* CompanyListViewController.swift in Sources */,
 				435D7897257692F100A3385E /* CompanyCollectionViewController.swift in Sources */,
 				436FFF802567015A0093190C /* CompanyListRouter.swift in Sources */,
+				436DE7CA25795C4000FB02B8 /* CompanyCollectionPresenter.swift in Sources */,
 				43BF863D256556E100394FAD /* AppDelegate.swift in Sources */,
 				4346E9B8257033A700BF8B05 /* Details.swift in Sources */,
 				4363E388256E5EF200345690 /* CompaniesResponse.swift in Sources */,
+				436DE7D025795C9F00FB02B8 /* CompanyCollectionConfigurator.swift in Sources */,
 				436FFF7D256701380093190C /* CompanyListWorker.swift in Sources */,
 				4346E9AE256FA40700BF8B05 /* CompanyDetailsModels.swift in Sources */,
 				436FFF83256703940093190C /* CompanyListModels.swift in Sources */,
@@ -316,6 +341,7 @@
 				4346E9AB256FA3E500BF8B05 /* CompanyDetailsWorker.swift in Sources */,
 				436FFF7125666AA10093190C /* Client.swift in Sources */,
 				436FFF76256700730093190C /* CompanyListInteractor.swift in Sources */,
+				436DE7CD25795C7700FB02B8 /* CompanyCollectionModels.swift in Sources */,
 				43BF863F256556E100394FAD /* SceneDelegate.swift in Sources */,
 				43BF86622565A63600394FAD /* Company.swift in Sources */,
 				43428ADD25698C1700498505 /* CompanyCollectionViewCell.swift in Sources */,
@@ -326,6 +352,8 @@
 				4346E9A5256FA38800BF8B05 /* CompanyDetailsInteractor.swift in Sources */,
 				43BF865C2565884600394FAD /* CompanyListTableViewCell.swift in Sources */,
 				4346E9A8256FA3B800BF8B05 /* CompanyDetailsPresenter.swift in Sources */,
+				436DE7C32578F2E500FB02B8 /* StorageManager.swift in Sources */,
+				436DE7C725795C1400FB02B8 /* CompanyCollectionInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

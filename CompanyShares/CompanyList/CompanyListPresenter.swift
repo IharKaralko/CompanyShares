@@ -15,6 +15,7 @@ class CompanyListPresenter {
     weak var viewController: CompanyListDisplayLogic?
 }
 
+// MARK: - CompanyListPresentationLogic
 extension CompanyListPresenter: CompanyListPresentationLogic {
     func presentPossibleOptions(response: CompanyList.Response) {
         let viewModel = CompanyList.ViewModel(companies: response.companies)

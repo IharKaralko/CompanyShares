@@ -19,7 +19,7 @@ class CompanyListViewController: UIViewController {
     @IBOutlet private weak var tableView: SelfSizedTableView!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var searchBar: UISearchBar!
-   
+    
     private var possibleOptions = [Company]()
     private var childViewController: ChildViewControllerProtocol?
     private let heightTableViewRow: CGFloat = 48
@@ -51,20 +51,20 @@ class CompanyListViewController: UIViewController {
 
 private extension CompanyListViewController {
     func setChild() {
-       let child = CompanyCollectionViewController()
+        let child = CompanyCollectionViewController()
         child.routerDelegate = self
-        child.didMove(toParent: self)
+        child.willMove(toParent: self)
         addChild(child)
         child.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(child.view)
-
-            NSLayoutConstraint.activate([
-                child.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-                child.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                child.view.topAnchor.constraint(equalTo: containerView.topAnchor),
-                child.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-            ])
-
+        
+        NSLayoutConstraint.activate([
+            child.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            child.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            child.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            child.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
         child.didMove(toParent: self)
         childViewController = child
     }
@@ -81,7 +81,6 @@ private extension CompanyListViewController {
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
-        
     }
     
     func delegatesRegistration() {
@@ -102,7 +101,13 @@ private extension CompanyListViewController {
         let nib = UINib.init(nibName: identifier, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
-
+    
+    func finishSearch() {
+        searchBar.text = ""
+        possibleOptions = [Company]()
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -123,10 +128,7 @@ extension CompanyListViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        searchBar.text = ""
-        possibleOptions = [Company]()
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
+        finishSearch()
     }
 }
 
@@ -152,11 +154,8 @@ extension CompanyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let company = possibleOptions[indexPath.row]
         childViewController?.addCompany(company: company)
-        childViewController?.reloadCompaniesList()
-        searchBar.text = ""
-        possibleOptions = []
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+        finishSearch()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -172,6 +171,7 @@ extension CompanyListViewController: CompanyListDisplayLogic {
     }
 }
 
+// MARK: - CompanyListRouterProtocol
 extension CompanyListViewController: CompanyListRouterProtocol {
     func routToDetails(company: Company) {
         guard let navVC = navigationController else { return }

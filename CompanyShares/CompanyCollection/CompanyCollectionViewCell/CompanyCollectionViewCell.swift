@@ -8,7 +8,6 @@
 import UIKit
 
 class CompanyCollectionViewCell: UICollectionViewCell {
-    
     @IBOutlet private weak var symbolLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var conteinerView: UIView!

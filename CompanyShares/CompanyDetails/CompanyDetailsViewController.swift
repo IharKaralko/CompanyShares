@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol CompanyDetailsDisplayLogic: class {
     func displayDetails(viewModel: CompanyDetails.ViewModel)
@@ -28,17 +29,42 @@ class CompanyDetailsViewController: UIViewController {
         super.viewDidLoad()
         CompanyDetailsConfigurator.shared.configure(with: self)
         showDetails()
+        navigationBarSetting()
     }
 }
 
 private extension CompanyDetailsViewController {
+    func navigationBarSetting() {
+        navigationItem.title = NSLocalizedString("Details", comment: "")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Delete", comment: ""), style: .plain, target: self, action: #selector(addTapped))
+    }
+    
+    @objc
+    func addTapped() {
+        guard let company = self.company else { return }
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
+            self?.interactor?.removeCompany(company: company)
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func showDetails() {
-        guard let company = company else { return }
+        guard let company = self.company else { return }
         let request = CompanyDetails.Requst(company: company)
-        interactor?.fetchDetail(request: request)
+        self.interactor?.fetchDetail(request: request)
     }
 }
 
+// MARK: - CompanyDetailsDisplayLogic
 extension CompanyDetailsViewController: CompanyDetailsDisplayLogic {
     func displayNoData(viewModel: CompanyDetails.ViewModel) {
         DispatchQueue.main.async {
