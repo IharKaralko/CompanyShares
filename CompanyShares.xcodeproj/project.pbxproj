@@ -36,9 +36,9 @@
 		436FFF83256703940093190C /* CompanyListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF82256703940093190C /* CompanyListModels.swift */; };
 		436FFF86256703C30093190C /* CompanyListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FFF85256703C30093190C /* CompanyListConfigurator.swift */; };
 		43939059257104DB003E8675 /* CompanyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43939058257104DB003E8675 /* CompanyResult.swift */; };
-		439714CD2577F75F001EF3FF /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 439714CC2577F75F001EF3FF /* Realm */; };
-		439714CF2577F75F001EF3FF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 439714CE2577F75F001EF3FF /* RealmSwift */; };
 		43986F4B2573FFA900EF002D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43986F4D2573FFA900EF002D /* Localizable.strings */; };
+		43B53381257E258300FE2B18 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 43B53380257E258300FE2B18 /* Realm */; };
+		43B53383257E258300FE2B18 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 43B53382257E258300FE2B18 /* RealmSwift */; };
 		43BF863D256556E100394FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF863C256556E100394FAD /* AppDelegate.swift */; };
 		43BF863F256556E100394FAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF863E256556E100394FAD /* SceneDelegate.swift */; };
 		43BF8641256556E100394FAD /* CompanyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF8640256556E100394FAD /* CompanyListViewController.swift */; };
@@ -99,8 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				439714CF2577F75F001EF3FF /* RealmSwift in Frameworks */,
-				439714CD2577F75F001EF3FF /* Realm in Frameworks */,
+				43B53383257E258300FE2B18 /* RealmSwift in Frameworks */,
+				43B53381257E258300FE2B18 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +258,8 @@
 			);
 			name = CompanyShares;
 			packageProductDependencies = (
-				439714CC2577F75F001EF3FF /* Realm */,
-				439714CE2577F75F001EF3FF /* RealmSwift */,
+				43B53380257E258300FE2B18 /* Realm */,
+				43B53382257E258300FE2B18 /* RealmSwift */,
 			);
 			productName = CompanyShares;
 			productReference = 43BF8639256556E100394FAD /* CompanyShares.app */;
@@ -290,7 +290,7 @@
 			);
 			mainGroup = 43BF8630256556E100394FAD;
 			packageReferences = (
-				439714CB2577F75F001EF3FF /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 43BF863A256556E100394FAD /* Products */;
 			projectDirPath = "";
@@ -563,25 +563,25 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		439714CB2577F75F001EF3FF /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+		43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.1.4;
+				minimumVersion = 10.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		439714CC2577F75F001EF3FF /* Realm */ = {
+		43B53380257E258300FE2B18 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 439714CB2577F75F001EF3FF /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			package = 43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = Realm;
 		};
-		439714CE2577F75F001EF3FF /* RealmSwift */ = {
+		43B53382257E258300FE2B18 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 439714CB2577F75F001EF3FF /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			package = 43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
