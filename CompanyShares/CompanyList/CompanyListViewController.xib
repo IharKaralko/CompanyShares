@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTP-c3-EMS">
-                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="300" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ysK-ci-fdn" customClass="SelfSizedTableView" customModule="CompanyShares" customModuleProvider="target">
@@ -41,7 +41,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BTP-c3-EMS" secondAttribute="trailing" id="2Fc-16-1ys"/>
                 <constraint firstItem="BTP-c3-EMS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="603-KA-mxJ"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EdE-zL-ZmZ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="BTP-c3-EMS" secondAttribute="bottom" id="N9u-4f-fop"/>
+                <constraint firstAttribute="bottom" secondItem="BTP-c3-EMS" secondAttribute="bottom" id="N9u-4f-fop"/>
                 <constraint firstItem="pPK-S2-hfO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="XbD-8w-1SW"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gCb-bV-5EF"/>
                 <constraint firstItem="ysK-ci-fdn" firstAttribute="top" secondItem="pPK-S2-hfO" secondAttribute="bottom" id="jZC-T8-dcG"/>
