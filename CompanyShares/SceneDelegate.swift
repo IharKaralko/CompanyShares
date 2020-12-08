@@ -10,20 +10,16 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var navC: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        navC = UINavigationController()
         window?.windowScene = windowScene
-        guard let window = window, let navC = navC else { return }
         
-        window.rootViewController = navC
-        let companyShare = CompanyListViewController()
-        navC.viewControllers = [companyShare]
-        window.makeKeyAndVisible()
+        let tabBarController = CompanyTabBarController()
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
