@@ -77,11 +77,14 @@ private extension CompanyListViewController {
     }
     
     func navigationBarSetting() {
-        navigationItem.title = NSLocalizedString("Company Share", comment: "")
+        navigationItem.title = "Company Share".localized
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
+       
     }
+     @objc
+    func add(){}
     
     func delegatesRegistration() {
         tableView.dataSource = self
@@ -93,7 +96,7 @@ private extension CompanyListViewController {
         searchBar.tintColor = UIColor.white
         searchBar.barTintColor = UIColor.red
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.placeholder = NSLocalizedString("Input ticker or name company", comment: "")
+        searchBar.placeholder = "Input ticker or name company".localized
     }
     
     func tableCellRegistration() {

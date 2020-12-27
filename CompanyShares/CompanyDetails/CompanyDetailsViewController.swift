@@ -35,22 +35,22 @@ class CompanyDetailsViewController: UIViewController {
 
 private extension CompanyDetailsViewController {
     func navigationBarSetting() {
-        navigationItem.title = NSLocalizedString("Details", comment: "")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Delete", comment: ""), style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.title = "Details".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete".localized, style: .plain, target: self, action: #selector(addTapped))
     }
     
     @objc
     func addTapped() {
         guard let company = self.company else { return }
         
-        let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
         
-        let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
+        let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
             self?.interactor?.removeCompany(company: company)
             self?.navigationController?.popViewController(animated: true)
         }
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel)
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)
         
@@ -69,7 +69,7 @@ extension CompanyDetailsViewController: CompanyDetailsDisplayLogic {
     func displayNoData(viewModel: CompanyDetails.ViewModel) {
         DispatchQueue.main.async {
             self.nameLabel.text = viewModel.name
-            self.priceAndChangeLabel.text = NSLocalizedString("No data available", comment: "")
+            self.priceAndChangeLabel.text = "No data available".localized
         }
     }
     

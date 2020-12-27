@@ -24,11 +24,11 @@ extension CompanyDetailsPresenter: CompanyDetailsPresentationLogic {
     
     func presentDetails(response: CompanyDetails.Response) {
         guard let companyResult = response.companyResult else { return }
-        let open = NSLocalizedString("Open:", comment: "") + "  " + companyResult.open
-        let previosClose = NSLocalizedString("Previos close:", comment: "") + "  " + companyResult.previosClose
-        let high = NSLocalizedString("High:", comment: "") + "  " + companyResult.high
-        let low = NSLocalizedString("Low:", comment: "") + "  " + companyResult.low
-        let volume = NSLocalizedString("Volume:", comment: "") + "  " + companyResult.volume
+        let open = "Open:".localized + "  " + companyResult.open
+        let previosClose = "Previos close:".localized + "  " + companyResult.previosClose
+        let high = "High:".localized + "  " + companyResult.high
+        let low = "Low:".localized + "  " + companyResult.low
+        let volume = "Volume:".localized + "  " + companyResult.volume
         
         let viewModel = CompanyDetails.ViewModel(name: response.name, companyResult: CompanyResult(priceAndChange: companyResult.priceAndChange, open: open, previosClose: previosClose, high: high, low: low, volume: volume))
         viewController?.displayDetails(viewModel: viewModel)

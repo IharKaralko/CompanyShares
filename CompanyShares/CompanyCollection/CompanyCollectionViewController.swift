@@ -67,14 +67,14 @@ private extension CompanyCollectionViewController {
         let indexPath = self.collectionView.indexPathForItem(at: point)
         
         if let indexPath = indexPath {
-            let alertController = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),  message: NSLocalizedString("Remove company?", comment: ""), preferredStyle: .alert)
+            let alertController = UIAlertController(title:"Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
             
-            let confirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) {[weak self] action in
+            let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
                 guard let company = self?.companies[indexPath.row] else { return }
                 self?.interactor?.removeCompany(company: company)
             }
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+            let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel)
             alertController.addAction(cancelAction)
             alertController.addAction(confirmAction)
             self.present(alertController, animated: true, completion: nil)

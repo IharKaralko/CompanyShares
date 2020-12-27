@@ -20,3 +20,15 @@
 "Volume:" = "Объем:";
 "Delete" = "Удалить";
 "Details" = "Подробно";
+"Portfolios" = "Портфели";
+"Add" = "Добавить";
+"New Portfolio" = "Новый портфель";
+"Enter a name for this portfolio" = "Введите имя этого портфеля";
+"Save" = "Сохранить";
+"Name" = "Имя";
+"Edit Portfolio" = "Править портфель";
+"Update" = "Обновить";
+"Purchase:" = "Покупка";
+"Amount:" = "Количество";
+"Current price:" = "Текущая цена:";
+"Total:" = "Итого:";
