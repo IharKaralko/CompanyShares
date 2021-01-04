@@ -183,7 +183,7 @@ extension CompanyPortfolioListViewController: UITableViewDelegate {
 
 extension CompanyPortfolioListViewController: CompanyPortfolioListDisplayLogic {
     func displayPortfolioList(viewModel: CompanyPortfolioList.ViewModel) {
-        portfolios = viewModel.portfoliosWithPrice
+        portfolios = viewModel.portfoliosWithPrice.sorted(by: { $0.portfolio.name ?? "" < $1.portfolio.name ?? ""})
         tableView.reloadData()
         updateEditButtonState()
     }
