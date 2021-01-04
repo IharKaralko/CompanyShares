@@ -15,14 +15,13 @@ class CompanyPortfolioListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 0.5
-        
     }
 }
 
 extension CompanyPortfolioListTableViewCell {
-    func configure(_ portfolio: PortfolioWithPrices) {
-        symbolLabel.text = portfolio.portfolio.name
-        purchaseLabel.text = portfolio.purchasePrice
-        currentPriceLabel.attributedText = portfolio.priceAndChange
+    func configure(_ portfolioWithPrices: PortfolioWithPrices) {
+        symbolLabel.text = portfolioWithPrices.portfolio.name
+        purchaseLabel.text = portfolioWithPrices.purchasePrice
+        currentPriceLabel.attributedText = portfolioWithPrices.priceAndChange
     }
 }

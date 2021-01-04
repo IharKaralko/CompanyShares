@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol CompanyDetailsDisplayLogic: class {
     func displayDetails(viewModel: CompanyDetails.ViewModel)
@@ -23,7 +22,7 @@ class CompanyDetailsViewController: UIViewController {
     @IBOutlet private weak var volumeLabel: UILabel!
     
     var interactor: CompanyDetailsBusinessLogic?
-    var company: Company?
+    var company: SelectedCompany?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,7 @@ private extension CompanyDetailsViewController {
         let alertController = UIAlertController(title: "Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
-            self?.interactor?.removeCompany(company: company)
+            self?.interactor?.remove(selectedCompany: company)
             self?.navigationController?.popViewController(animated: true)
         }
         

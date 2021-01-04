@@ -9,12 +9,12 @@ import Foundation
 
 enum CompanyDetails {
     struct Requst {
-        let company: Company
+        let company: SelectedCompany
     }
     
     struct Response {
-        let name: String
-        let companyResult: CompanyResult?
+        let company: SelectedCompany
+        let details: Details?
     }
     
     struct ViewModel {

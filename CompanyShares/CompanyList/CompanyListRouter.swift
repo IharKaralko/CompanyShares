@@ -8,11 +8,11 @@
 import UIKit
 
 protocol CompanyListRoutingLogic: class {
-    func routeToCopmanyDetails(company: Company, navVC: UINavigationController)
+    func routeToCopmanyDetails(company: SelectedCompany, navVC: UINavigationController)
 }
 
 class CompanyListRouter: CompanyListRoutingLogic {
-    func routeToCopmanyDetails(company: Company, navVC: UINavigationController) {
+    func routeToCopmanyDetails(company: SelectedCompany, navVC: UINavigationController) {
         let companyDetailsVC = CompanyDetailsViewController()
         companyDetailsVC.company = company
         navVC.pushViewController(companyDetailsVC, animated: true)

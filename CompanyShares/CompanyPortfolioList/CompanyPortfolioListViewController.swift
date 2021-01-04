@@ -14,29 +14,29 @@ protocol CompanyPortfolioListDisplayLogic: class {
 class CompanyPortfolioListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private var portfolios = [PortfolioWithPrices]()
+    private let heightTableViewRow: CGFloat = 90
     
     var interactor: CompanyPortfolioListBusinessLogic?
     var router: CompanyPortfolioListRoutingLogic?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CompanyPortfolioListConfigurator.shared.configure(with: self)
         navigationBarSetting()
         delegatesRegistration()
         tableCellRegistration()
-      //  interactor?.fetchPortfolios()
-        updateEditButtonState()
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: animated)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
         interactor?.fetchPortfolios()
-        
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
@@ -56,13 +56,13 @@ private extension CompanyPortfolioListViewController {
     func addNewPortfolio() {
         alertForAddAndUpdatePortfolio()
     }
- 
-    func alertForAddAndUpdatePortfolio(_ portfolio: PortfolioWithPrices? = nil) {
+    
+    func alertForAddAndUpdatePortfolio(_ portfolioWithPrices: PortfolioWithPrices? = nil) {
         var alertTextField = UITextField()
         var title = "New Portfolio".localized
         var doneButton = "Save".localized
         
-        if portfolio != nil {
+        if portfolioWithPrices != nil {
             title = "Edit Portfolio".localized
             doneButton = "Update".localized
         }
@@ -72,19 +72,20 @@ private extension CompanyPortfolioListViewController {
         let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: doneButton, style: .default) { [weak self] _ in
             guard let newName = alertTextField.text else { return }
-            if let portfolio = portfolio {
-                self?.updatePortfolio(portfolio: portfolio, name: newName)            } else {
-                    self?.addPortfolio(name: newName)
-                    
-                }
+            if let portfolioWithPrices = portfolioWithPrices {
+                self?.update(portfolioWithPrices: portfolioWithPrices, name: newName)
+            } else {
+                self?.addPortfolio(name: newName)
+            }
         }
+        
         saveAction.isEnabled = false
         alert.addTextField { textField in
             alertTextField = textField
-            if let portfolio = portfolio {
-                alertTextField.text = portfolio.portfolio.name
-                
+            if let portfolioWithPrices = portfolioWithPrices {
+                alertTextField.text = portfolioWithPrices.portfolio.name
             }
+            
             textField.placeholder = "Name".localized
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main) { notif in
                 if let text = textField.text, !(text.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty {
@@ -100,11 +101,10 @@ private extension CompanyPortfolioListViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    
     func updateEditButtonState() {
         navigationItem.leftBarButtonItem?.isEnabled =  portfolios.count > 0
     }
-
+    
     func delegatesRegistration() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -116,15 +116,9 @@ private extension CompanyPortfolioListViewController {
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
     
-    func portfolio(at indexPath: IndexPath) -> PortfolioWithPrices {
-        return portfolios[indexPath.row]
-    }
-    
-    func deleteNotebook(at indexPath: IndexPath) {
-        // let portfolioToDelete = portfolio(at: indexPath)
+    func deletePortfolio(at indexPath: IndexPath) {
         let portfolioToDelete = portfolios[indexPath.row]
-        interactor?.removePortfolios(portfolio: portfolioToDelete.portfolio)
-        //   dataSourceOfNotebook.removeNotebook(notebook: notebookToDelete)
+        interactor?.remove(portfolio: portfolioToDelete.portfolio)
         portfolios.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
         if portfolios.count == 0 {
@@ -137,9 +131,9 @@ private extension CompanyPortfolioListViewController {
         interactor?.addPortfolio(name: name)
     }
     
-    func updatePortfolio(portfolio: PortfolioWithPrices, name: String) {
-        interactor?.updatePortfolio(portfolio: portfolio.portfolio, name: name)
-        portfolio.portfolio.name = name
+    func update(portfolioWithPrices: PortfolioWithPrices, name: String) {
+        interactor?.update(portfolio: portfolioWithPrices.portfolio, name: name)
+        portfolios = portfolios.sorted(by: { $0.portfolio.name ?? "" < $1.portfolio.name ?? ""})
         tableView.reloadData()
     }
 }
@@ -155,9 +149,8 @@ extension CompanyPortfolioListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CompanyPortfolioListTableViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
-        
-        let portfolio = portfolios[indexPath.row]
-        cell.configure(portfolio)
+        let portfolioWithPrices = portfolios[indexPath.row]
+        cell.configure(portfolioWithPrices)
         return cell
     }
 }
@@ -168,35 +161,29 @@ extension CompanyPortfolioListViewController: UITableViewDelegate {
         let portfolio = portfolios[indexPath.row].portfolio
         guard let navVC = navigationController else { return }
         router?.routeToPortfolioDetails(portfolio: portfolio, navVC: navVC)
-//        let company = possibleOptions[indexPath.row]
-//        childViewController?.addCompany(company: company)
-//        searchBar.showsCancelButton = false
-//        finishSearch()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80 //heightTableViewRow
+        return heightTableViewRow
     }
     
-   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-      let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { (action, view, success) in
-        self.deleteNotebook(at: indexPath)
-        print("Delete")
-      })
-    
-    let updateAction = UIContextualAction(style: .normal, title: "Update", handler: { (action, view, success) in
-        self.alertForAddAndUpdatePortfolio(self.portfolios[indexPath.row])
-    })
-    
-      deleteAction.backgroundColor = .red
-      return UISwipeActionsConfiguration(actions: [updateAction, deleteAction])
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { [weak self] (_, _, _) in
+            self?.deletePortfolio(at: indexPath)
+        })
+        
+        let updateAction = UIContextualAction(style: .normal, title: "Update", handler: { [weak self] (_, _, _) in
+            self?.alertForAddAndUpdatePortfolio(self?.portfolios[indexPath.row])
+        })
+        
+        deleteAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [updateAction, deleteAction])
     }
-
 }
 
 extension CompanyPortfolioListViewController: CompanyPortfolioListDisplayLogic {
     func displayPortfolioList(viewModel: CompanyPortfolioList.ViewModel) {
-        portfolios = viewModel.portfoliosWithPrice.sorted(by: { $0.portfolio.name ?? "" < $1.portfolio.name ?? "" })
+        portfolios = viewModel.portfoliosWithPrice
         tableView.reloadData()
         updateEditButtonState()
     }

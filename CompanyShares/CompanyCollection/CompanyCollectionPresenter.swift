@@ -9,7 +9,6 @@ import Foundation
 
 protocol CompanyCollectionPresentationLogic {
     func presentCompanyList(response: CompanyCollection.Response)
-    func reloadCompanyList()
 }
 
 class CompanyCollectionPresenter {
@@ -21,9 +20,5 @@ extension CompanyCollectionPresenter: CompanyCollectionPresentationLogic {
     func presentCompanyList(response: CompanyCollection.Response) {
         let viewModel = CompanyCollection.ViewModel(companies: response.companies)
         viewController?.displayCompany(viewModel: viewModel)
-    }
-    
-    func reloadCompanyList() {
-        viewController?.reloadCompaniesList()
     }
 }

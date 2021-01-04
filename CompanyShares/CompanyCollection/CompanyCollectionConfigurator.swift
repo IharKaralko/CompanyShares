@@ -17,6 +17,7 @@ class CompanyCollectionConfigurator {
         
         viewController.interactor = interactor
         interactor.presenter = presenter
+        interactor.dataSourceOfSelectedCompany = DataSourceOfSelectedCompany()
         presenter.viewController = viewController
     }
 }

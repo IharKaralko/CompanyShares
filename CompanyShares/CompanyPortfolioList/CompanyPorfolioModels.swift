@@ -9,11 +9,12 @@ import Foundation
 
 enum CompanyPortfolioList {
     struct Response {
-        let portfoliosWithPrice: [PortfolioWithPrices]
+        let portfolio: Portfolio
+        let purchasePrice: Double
+        let currentPrice: Double
     }
     
     struct ViewModel {
         let portfoliosWithPrice: [PortfolioWithPrices]
-        
     }
 }

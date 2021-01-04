@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import RealmSwift
 
 enum CompanyCollection {
     struct Response {
-        let companies: Results<Company>?
+        let companies: [SelectedCompany]
     }
     
     struct ViewModel {
-        let companies: Results<Company>?
+        let companies: [SelectedCompany]
     }
 }

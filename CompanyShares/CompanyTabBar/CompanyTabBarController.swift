@@ -8,7 +8,6 @@
 import UIKit
 
 class CompanyTabBarController: UITabBarController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -17,20 +16,20 @@ class CompanyTabBarController: UITabBarController {
 
 private extension CompanyTabBarController {
     func setupTabBar() {
-        let companyShare = CompanyListViewController()
-        let company = CompanyDetailsViewController()
-        let portfoliolist = CompanyPortfolioListViewController()
+        let companyList = CompanyListViewController()
+        let companyDetails = CompanyDetailsViewController()
+        let portfolioList = CompanyPortfolioListViewController()
         
-        let navController = UINavigationController(rootViewController: companyShare)
-        navController.tabBarItem = UITabBarItem(title: "Interests", image: UIImage(named: "interests"), selectedImage: nil )
+        let navControllerInterest = UINavigationController(rootViewController: companyList)
+        navControllerInterest.tabBarItem = UITabBarItem(title: "Interests", image: UIImage(named: "interests"), selectedImage: nil )
         
-        let navControllerOne = UINavigationController(rootViewController: portfoliolist)
-        navControllerOne.tabBarItem = UITabBarItem(title: "Portfolios", image: UIImage(named: "portfolio"), selectedImage: nil )
+        let navControllerPortfolios = UINavigationController(rootViewController: portfolioList)
+        navControllerPortfolios.tabBarItem = UITabBarItem(title: "Portfolios", image: UIImage(named: "portfolio"), selectedImage: nil )
         
-        let navControllerTwo = UINavigationController(rootViewController: company)
-        navControllerTwo.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "setting"), selectedImage: nil )
+        let navControllerSettings = UINavigationController(rootViewController: companyDetails)
+        navControllerSettings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "setting"), selectedImage: nil )
         
-        viewControllers = [navController, navControllerOne, navControllerTwo]
+        viewControllers = [navControllerInterest, navControllerPortfolios, navControllerSettings]
         tabBar.barTintColor = .red
         tabBar.tintColor = .black
     }

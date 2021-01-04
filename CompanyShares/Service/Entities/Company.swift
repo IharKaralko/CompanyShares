@@ -6,15 +6,10 @@
 //
 
 import Foundation
-import RealmSwift
 
-class Company: Object, Decodable {
-    @objc dynamic var symbol = ""
-    @objc dynamic var name = ""
-    
-    override static func primaryKey() -> String? {
-        return "symbol"
-    }
+struct Company: Decodable {
+    let symbol: String
+    let name: String
     
     enum CodingKeys: String, CodingKey {
         case symbol = "1. symbol"

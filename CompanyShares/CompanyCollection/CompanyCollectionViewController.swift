@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol CompanyCollectionDisplayLogic: class {
     func displayCompany(viewModel: CompanyCollection.ViewModel)
-    func reloadCompaniesList()
 }
 
 protocol ChildViewControllerProtocol: class {
@@ -20,7 +18,7 @@ protocol ChildViewControllerProtocol: class {
 
 class CompanyCollectionViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
-    private var companies: Results<Company>!
+    private var companies = [SelectedCompany]()
     private let sectionInsets = UIEdgeInsets(top:10.0, left: 10.0, bottom: 20.0, right: 10.0)
     private let itemsPerRow: CGFloat = 2
     
@@ -30,11 +28,13 @@ class CompanyCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CompanyCollectionConfigurator.shared.configure(with: self)
-        interactor?.loadCompanyList()
-        interactor?.setObserver()
+      //  interactor?.loadCompanyList()
         delegatesRegistration()
         collectionCellRegistration()
         longPressSetting()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        interactor?.loadCompanyList()
     }
 }
 
@@ -62,18 +62,15 @@ private extension CompanyCollectionViewController {
         if longPressGR.state != .ended {
             return
         }
-        
         let point = longPressGR.location(in: self.collectionView)
         let indexPath = self.collectionView.indexPathForItem(at: point)
-        
         if let indexPath = indexPath {
             let alertController = UIAlertController(title:"Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
             
             let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
                 guard let company = self?.companies[indexPath.row] else { return }
-                self?.interactor?.removeCompany(company: company)
+                self?.interactor?.remove(selectedCompany: company)
             }
-            
             let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel)
             alertController.addAction(cancelAction)
             alertController.addAction(confirmAction)
@@ -117,8 +114,8 @@ extension CompanyCollectionViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? CompanyCollectionViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
-        let copmany = companies[indexPath.row]
-        cell.configure(copmany)
+        let selectedCompany = companies[indexPath.row]
+        cell.configure(selectedCompany)
         return cell
     }
 }
@@ -126,15 +123,15 @@ extension CompanyCollectionViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension CompanyCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let company = companies[indexPath.row]
-        routerDelegate?.routToDetails(company: company)
+        let selectedCompany = companies[indexPath.row]
+        routerDelegate?.routToDetails(company: selectedCompany)
     }
 }
 
 // MARK: - ChildViewControllerProtocol
 extension CompanyCollectionViewController: ChildViewControllerProtocol {
     func addCompany(company: Company) {
-        interactor?.addCompany(company: company)
+        interactor?.add(company: company)
     }
 }
 
@@ -142,10 +139,6 @@ extension CompanyCollectionViewController: ChildViewControllerProtocol {
 extension CompanyCollectionViewController: CompanyCollectionDisplayLogic {
     func displayCompany(viewModel: CompanyCollection.ViewModel) {
         companies = viewModel.companies
-        collectionView.reloadData()
-    }
-    
-    func reloadCompaniesList() {
         collectionView.reloadData()
     }
 }

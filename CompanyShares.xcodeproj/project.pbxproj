@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,7 +20,6 @@
 		435D7898257692F100A3385E /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435D7896257692F100A3385E /* CompanyCollectionViewController.xib */; };
 		4360BD25258B6173009F9C75 /* CompanyPortfolioSharesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD24258B6173009F9C75 /* CompanyPortfolioSharesInteractor.swift */; };
 		4360BD28258B61A1009F9C75 /* CompanyPortfolioSharesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD27258B61A1009F9C75 /* CompanyPortfolioSharesPresenter.swift */; };
-		4360BD2B258B61C9009F9C75 /* CompanyPortfolioSharesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD2A258B61C9009F9C75 /* CompanyPortfolioSharesWorker.swift */; };
 		4360BD2E258B61ED009F9C75 /* CompanyPortfolioModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD2D258B61ED009F9C75 /* CompanyPortfolioModels.swift */; };
 		4360BD31258B6213009F9C75 /* CompanyPortfolioSharesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD30258B6213009F9C75 /* CompanyPortfolioSharesConfigurator.swift */; };
 		4360BD36258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD34258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.swift */; };
@@ -31,7 +30,6 @@
 		4363E397256EA1BE00345690 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4363E396256EA1BE00345690 /* Assets.xcassets */; };
 		43644BAF258A2CBE007AE170 /* CompanyPortfolioSharesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43644BAD258A2CBE007AE170 /* CompanyPortfolioSharesViewController.swift */; };
 		43644BB0258A2CBE007AE170 /* CompanyPortfolioSharesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43644BAE258A2CBE007AE170 /* CompanyPortfolioSharesViewController.xib */; };
-		436DE7C32578F2E500FB02B8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C22578F2E500FB02B8 /* StorageManager.swift */; };
 		436DE7C725795C1400FB02B8 /* CompanyCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C625795C1400FB02B8 /* CompanyCollectionInteractor.swift */; };
 		436DE7CA25795C4000FB02B8 /* CompanyCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7C925795C4000FB02B8 /* CompanyCollectionPresenter.swift */; };
 		436DE7CD25795C7700FB02B8 /* CompanyCollectionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DE7CC25795C7700FB02B8 /* CompanyCollectionModels.swift */; };
@@ -63,10 +61,9 @@
 		43888EB52583798F000A689D /* DataSourceOfPortfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43888EB42583798F000A689D /* DataSourceOfPortfolio.swift */; };
 		43939059257104DB003E8675 /* CompanyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43939058257104DB003E8675 /* CompanyResult.swift */; };
 		43986F4B2573FFA900EF002D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43986F4D2573FFA900EF002D /* Localizable.strings */; };
+		4398E98A2599D8E800416316 /* DataSourceOfSelectedCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4398E9892599D8E800416316 /* DataSourceOfSelectedCompany.swift */; };
 		43A07C4F25933E350055995A /* ShareWithPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A07C4E25933E350055995A /* ShareWithPrices.swift */; };
 		43A07C5325935C370055995A /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A07C5225935C370055995A /* String+Localizable.swift */; };
-		43B53381257E258300FE2B18 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 43B53380257E258300FE2B18 /* Realm */; };
-		43B53383257E258300FE2B18 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 43B53382257E258300FE2B18 /* RealmSwift */; };
 		43BF863D256556E100394FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF863C256556E100394FAD /* AppDelegate.swift */; };
 		43BF863F256556E100394FAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF863E256556E100394FAD /* SceneDelegate.swift */; };
 		43BF8641256556E100394FAD /* CompanyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF8640256556E100394FAD /* CompanyListViewController.swift */; };
@@ -91,7 +88,6 @@
 		435D7896257692F100A3385E /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyCollectionViewController.xib; sourceTree = "<group>"; };
 		4360BD24258B6173009F9C75 /* CompanyPortfolioSharesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesInteractor.swift; sourceTree = "<group>"; };
 		4360BD27258B61A1009F9C75 /* CompanyPortfolioSharesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesPresenter.swift; sourceTree = "<group>"; };
-		4360BD2A258B61C9009F9C75 /* CompanyPortfolioSharesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesWorker.swift; sourceTree = "<group>"; };
 		4360BD2D258B61ED009F9C75 /* CompanyPortfolioModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioModels.swift; sourceTree = "<group>"; };
 		4360BD30258B6213009F9C75 /* CompanyPortfolioSharesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesConfigurator.swift; sourceTree = "<group>"; };
 		4360BD34258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,7 +98,6 @@
 		4363E396256EA1BE00345690 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43644BAD258A2CBE007AE170 /* CompanyPortfolioSharesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPortfolioSharesViewController.swift; sourceTree = "<group>"; };
 		43644BAE258A2CBE007AE170 /* CompanyPortfolioSharesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyPortfolioSharesViewController.xib; sourceTree = "<group>"; };
-		436DE7C22578F2E500FB02B8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		436DE7C625795C1400FB02B8 /* CompanyCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionInteractor.swift; sourceTree = "<group>"; };
 		436DE7C925795C4000FB02B8 /* CompanyCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionPresenter.swift; sourceTree = "<group>"; };
 		436DE7CC25795C7700FB02B8 /* CompanyCollectionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCollectionModels.swift; sourceTree = "<group>"; };
@@ -136,6 +131,7 @@
 		43986F492573FF9000EF002D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		43986F4C2573FFA900EF002D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		43986F4F2573FFC200EF002D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4398E9892599D8E800416316 /* DataSourceOfSelectedCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceOfSelectedCompany.swift; sourceTree = "<group>"; };
 		43A07C4E25933E350055995A /* ShareWithPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWithPrices.swift; sourceTree = "<group>"; };
 		43A07C5225935C370055995A /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		43BF8639256556E100394FAD /* CompanyShares.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CompanyShares.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,8 +151,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43B53383257E258300FE2B18 /* RealmSwift in Frameworks */,
-				43B53381257E258300FE2B18 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				43888EB325837822000A689D /* CoreData */,
-				436DE7C22578F2E500FB02B8 /* StorageManager.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -255,7 +248,6 @@
 				43644BAE258A2CBE007AE170 /* CompanyPortfolioSharesViewController.xib */,
 				4360BD24258B6173009F9C75 /* CompanyPortfolioSharesInteractor.swift */,
 				4360BD27258B61A1009F9C75 /* CompanyPortfolioSharesPresenter.swift */,
-				4360BD2A258B61C9009F9C75 /* CompanyPortfolioSharesWorker.swift */,
 				4360BD2D258B61ED009F9C75 /* CompanyPortfolioModels.swift */,
 				4360BD30258B6213009F9C75 /* CompanyPortfolioSharesConfigurator.swift */,
 			);
@@ -293,6 +285,7 @@
 				43888EB02583741B000A689D /* CoreDataManager.swift */,
 				43888EB42583798F000A689D /* DataSourceOfPortfolio.swift */,
 				4387CD39258760D60029718E /* DataSourceOfShare.swift */,
+				4398E9892599D8E800416316 /* DataSourceOfSelectedCompany.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -398,8 +391,6 @@
 			);
 			name = CompanyShares;
 			packageProductDependencies = (
-				43B53380257E258300FE2B18 /* Realm */,
-				43B53382257E258300FE2B18 /* RealmSwift */,
 			);
 			productName = CompanyShares;
 			productReference = 43BF8639256556E100394FAD /* CompanyShares.app */;
@@ -430,7 +421,6 @@
 			);
 			mainGroup = 43BF8630256556E100394FAD;
 			packageReferences = (
-				43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 43BF863A256556E100394FAD /* Products */;
 			projectDirPath = "";
@@ -472,7 +462,6 @@
 				4387CD37258752080029718E /* CompanyPortfolioListConfigurator.swift in Sources */,
 				43BF8641256556E100394FAD /* CompanyListViewController.swift in Sources */,
 				435D7897257692F100A3385E /* CompanyCollectionViewController.swift in Sources */,
-				4360BD2B258B61C9009F9C75 /* CompanyPortfolioSharesWorker.swift in Sources */,
 				436FFF802567015A0093190C /* CompanyListRouter.swift in Sources */,
 				4360BD36258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.swift in Sources */,
 				436DE7CA25795C4000FB02B8 /* CompanyCollectionPresenter.swift in Sources */,
@@ -517,11 +506,11 @@
 				4382CA7525813A4C00C2F221 /* CompanyPortfolioListViewController.swift in Sources */,
 				4346E9A8256FA3B800BF8B05 /* CompanyDetailsPresenter.swift in Sources */,
 				43888EB52583798F000A689D /* DataSourceOfPortfolio.swift in Sources */,
-				436DE7C32578F2E500FB02B8 /* StorageManager.swift in Sources */,
 				43888EB12583741B000A689D /* CoreDataManager.swift in Sources */,
 				4387CD302587518D0029718E /* CompanyPorfolioListRouter.swift in Sources */,
 				436DE7C725795C1400FB02B8 /* CompanyCollectionInteractor.swift in Sources */,
 				4360BD31258B6213009F9C75 /* CompanyPortfolioSharesConfigurator.swift in Sources */,
+				4398E98A2599D8E800416316 /* DataSourceOfSelectedCompany.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,30 +718,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.2.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		43B53380257E258300FE2B18 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		43B53382257E258300FE2B18 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 43B5337F257E258300FE2B18 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4382CA6B2581126C00C2F221 /* CompanyShares.xcdatamodeld */ = {

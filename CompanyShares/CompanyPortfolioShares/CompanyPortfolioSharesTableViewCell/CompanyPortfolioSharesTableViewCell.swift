@@ -8,7 +8,6 @@
 import UIKit
 
 class CompanyPortfolioSharesTableViewCell: UITableViewCell {
-
     @IBOutlet private weak var totalNameLabel: UILabel!
     @IBOutlet private weak var currentPriceNameLabel: UILabel!
     @IBOutlet private weak var countNameLabel: UILabel!
@@ -24,18 +23,19 @@ class CompanyPortfolioSharesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 0.5
         setNamesForLabel()
-        }
+    }
 }
 
 extension CompanyPortfolioSharesTableViewCell {
-    func configure(share: ShareWithPrices) {
-        symbolLabel.text = share.share.symbol
-        totalCurrentPrice.attributedText = share.totalPriceAndChange
-        purchaseLabel.text = String(share.share.purchasePrice)
-        countLabel.text = String(share.share.count)
-        totalPurchaseLabel.text = String(share.share.purchasePrice * Double(share.share.count))
-            currentPriceLabel.attributedText = share.priceAndChange
-        }
+    func configure(shareWithPrices: ShareWithPrices) {
+        symbolLabel.text = shareWithPrices.share.symbol
+        totalCurrentPrice.attributedText = shareWithPrices.totalPriceAndChange
+        purchaseLabel.text = String(format: "%.2f", shareWithPrices.share.purchasePrice)
+        countLabel.text = String(shareWithPrices.share.count)
+        let totalPurchase = shareWithPrices.share.purchasePrice * Double(shareWithPrices.share.count)
+        totalPurchaseLabel.text = String(format: "%.2f", totalPurchase)
+        currentPriceLabel.attributedText = shareWithPrices.priceAndChange
+    }
 }
 
 private extension CompanyPortfolioSharesTableViewCell {
@@ -44,6 +44,5 @@ private extension CompanyPortfolioSharesTableViewCell {
         countNameLabel.text = "Amount:".localized
         currentPriceNameLabel.text = "Current price:".localized
         totalNameLabel.text = "Total:".localized
-        
     }
 }

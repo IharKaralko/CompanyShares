@@ -6,44 +6,33 @@
 //
 
 import Foundation
-import RealmSwift
 
 protocol CompanyCollectionBusinessLogic: class {
     func loadCompanyList()
-    func setObserver()
-    func addCompany(company: Company)
-    func removeCompany(company: Company)
-    
+    func add(company: Company)
+    func remove(selectedCompany: SelectedCompany)
 }
 
 class CompanyCollectionInteractor {
     var presenter: CompanyCollectionPresentationLogic?
-    var token: NotificationToken!
-    
-    deinit {
-        token.invalidate()
-    }
+    var dataSourceOfSelectedCompany: DataSourceOfSelectedCompanyProtocol?
 }
 
 // MARK: - CompanyCollectionBusinessLogic
 extension CompanyCollectionInteractor: CompanyCollectionBusinessLogic {
-    func addCompany(company: Company) {
-        StorageManager.saveCompany(company)
+    func add(company: Company) {
+        dataSourceOfSelectedCompany?.create(company: company)
+        loadCompanyList()
     }
     
-    func removeCompany(company: Company) {
-        StorageManager.removeCompany(company)
+    func remove(selectedCompany: SelectedCompany) {
+        dataSourceOfSelectedCompany?.remove(selectedCompany: selectedCompany)
+        loadCompanyList()
     }
     
     func loadCompanyList() {
-        let companies = StorageManager.realm?.objects(Company.self)
+        guard let companies = dataSourceOfSelectedCompany?.getSelectedCompanies() else { return }
         let responce = CompanyCollection.Response(companies: companies)
         presenter?.presentCompanyList(response: responce)
-    }
-    
-    func setObserver() {
-        token = StorageManager.realm?.observe { [weak self] notification, realm in
-            self?.presenter?.reloadCompanyList()
-        }
     }
 }

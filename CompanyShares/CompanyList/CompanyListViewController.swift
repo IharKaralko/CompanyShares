@@ -12,7 +12,7 @@ protocol CompanyListDisplayLogic: class {
 }
 
 protocol CompanyListRouterProtocol: class {
-    func routToDetails(company: Company)
+    func routToDetails(company: SelectedCompany)
 }
 
 class CompanyListViewController: UIViewController {
@@ -37,15 +37,10 @@ class CompanyListViewController: UIViewController {
         setChild()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(adjustForKeyboard),
-                                               name: UIResponder.keyboardDidShowNotification,
-                                               object: nil)
+    override func viewWillAppear(_ animated: Bool) { NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) { NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -83,8 +78,6 @@ private extension CompanyListViewController {
         navigationController?.navigationBar.tintColor = UIColor.black
        
     }
-     @objc
-    func add(){}
     
     func delegatesRegistration() {
         tableView.dataSource = self
@@ -176,7 +169,7 @@ extension CompanyListViewController: CompanyListDisplayLogic {
 
 // MARK: - CompanyListRouterProtocol
 extension CompanyListViewController: CompanyListRouterProtocol {
-    func routToDetails(company: Company) {
+    func routToDetails(company: SelectedCompany) {
         guard let navVC = navigationController else { return }
         router?.routeToCopmanyDetails(company: company, navVC: navVC)
     }

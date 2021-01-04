@@ -15,28 +15,25 @@ class CompanyPortfolioSharesPresenter {
     weak var viewController: CompanyPortfolioSharesDisplayLogic?
 }
 
-// MARK: - CompanyPortfolioListPresentationLogic
+// MARK: - CompanyPortfolioSharesPresentationLogic
 extension CompanyPortfolioSharesPresenter: CompanyPortfolioSharesPresentationLogic {
     func presentShares(response: CompanyPortfolioShares.Response) {
         var sharesWithPrices = [ShareWithPrices]()
         for share in response.shares {
             let totalPurchase = share.purchasePrice * Double(share.count)
             let totalCurrentPrice = share.currentPrice * Double(share.count)
-            
-        let totalPriceAndChange = getAttributedString(purchasePrice: totalPurchase, currentPrice: totalCurrentPrice)
-            
-        let priceAndChange = getAttributedString(purchasePrice: share.purchasePrice, currentPrice: share.currentPrice)
+            let totalPriceAndChange = getAttributedString(purchasePrice: totalPurchase, currentPrice: totalCurrentPrice, isTotalPrice: true)
+            let priceAndChange = getAttributedString(purchasePrice: share.purchasePrice, currentPrice: share.currentPrice, isTotalPrice: false)
             let shareWithPrices = ShareWithPrices(share: share, totalPriceAndChange: totalPriceAndChange, priceAndChange: priceAndChange)
             sharesWithPrices.append(shareWithPrices)
         }
         let viewModel = CompanyPortfolioShares.ViewModel(shares: sharesWithPrices)
         viewController?.displayShares(viewModel: viewModel)
     }
+}
     
-    
-    
-    
-    func getAttributedString(purchasePrice: Double, currentPrice: Double) -> NSMutableAttributedString {
+private extension CompanyPortfolioSharesPresenter {
+    func getAttributedString(purchasePrice: Double, currentPrice: Double, isTotalPrice: Bool) -> NSMutableAttributedString {
         let currentPriceString = String(format: "%.2f", currentPrice)
         let attributedString = NSMutableAttributedString(string: currentPriceString, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
         var attrs: [NSAttributedString.Key : Any]
@@ -49,14 +46,18 @@ extension CompanyPortfolioSharesPresenter: CompanyPortfolioSharesPresentationLog
         }
         
         let change = currentPrice - purchasePrice
-        let changePercent = (change / purchasePrice) * 100
+        let changePercent = purchasePrice > 0 ? (change / purchasePrice) * 100 : 0
         let changeString = String(format: "%.2f", change)
         let changePercentString = String(format: "%.2f", changePercent)
+        let changeItog: String
+        if purchasePrice > 0 && !isTotalPrice {
+            changeItog = "  " + changeString + " (" + changePercentString + "%)"
+        } else {
+            changeItog = "  " + changeString
+        }
         
-        let changeItog = "  " + changeString + " (" + changePercentString + "%)"
         let attributedChange = NSMutableAttributedString(string: changeItog, attributes: attrs)
         attributedString.append(attributedChange)
         return attributedString
     }
-    
 }

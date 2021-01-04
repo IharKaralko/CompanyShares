@@ -8,6 +8,12 @@
 import Foundation
 import CoreData
 
+protocol DataSourceOfShareProtocol: class {
+    func getShares(portfolio: Portfolio) -> [Share]
+    func createShare(name: String, count: Int64, purchasePrice: Double, portfolio: Portfolio)
+    func remove(share: Share)
+}
+
 class DataSourceOfShare {
     private  var context: NSManagedObjectContext
     
@@ -16,22 +22,22 @@ class DataSourceOfShare {
     }
 }
 
-extension DataSourceOfShare {
+// MARK: - DataSourceOfShareProtocol
+extension DataSourceOfShare: DataSourceOfShareProtocol {
     func getShares(portfolio: Portfolio) -> [Share] {
         var shares = [Share]()
         let fetchRequest: NSFetchRequest<Share> = Share.fetchRequest()
         let predicate = NSPredicate(format: "portfolio == %@", portfolio)
         fetchRequest.predicate = predicate
-//        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "symbol", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         if let result = try? context.fetch(fetchRequest) {
             shares = result
         }
         return shares
     }
     
-    func createShare(name: String, count: Int64, purchasePrice: Double, portfolio: Portfolio) //-> Share
-    {
+    func createShare(name: String, count: Int64, purchasePrice: Double, portfolio: Portfolio) {
         let share = Share(context: context)
         share.id = UUID().uuidString
         share.symbol = name
@@ -40,15 +46,10 @@ extension DataSourceOfShare {
         share.currentPrice = 0
         share.portfolio = portfolio
         CoreDataManager.instance.saveContext()
-       // return share
     }
     
-    func removeNote(share: Share) {
+    func remove(share: Share) {
         context.delete(share)
-        CoreDataManager.instance.saveContext()
-    }
-    
-    func updateNote(share: Share, text:String) {
         CoreDataManager.instance.saveContext()
     }
 }

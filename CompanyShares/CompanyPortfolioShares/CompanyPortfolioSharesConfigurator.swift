@@ -14,15 +14,12 @@ class CompanyPortfolioSharesConfigurator {
         let viewController = view
         let interactor = CompanyPortfolioSharesInteractor()
         let presenter = CompanyPortfolioSharesPresenter()
-        let worker = CompanyPortfolioSharesWorker()
-       // let router = CompanyPorfolioListRouter()
+        let worker = CompanyPortfolioListWorker()
         
         viewController.interactor = interactor
-     //   viewController.router = router
         interactor.presenter = presenter
         interactor.worker = worker
         interactor.dataSourceOfShares = DataSourceOfShare()
-//        interactor.dataSourceOfPortfolio = DataSourceOfPortfolio()
         presenter.viewController = viewController
     }
 }

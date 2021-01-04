@@ -5,7 +5,7 @@
 //  Created by Ihar_Karalko on 11/26/20.
 //
 
-import Foundation
+import UIKit
 
 protocol CompanyDetailsPresentationLogic: class {
     func presentDetails(response: CompanyDetails.Response)
@@ -18,19 +18,45 @@ class CompanyDetailsPresenter {
 
 extension CompanyDetailsPresenter: CompanyDetailsPresentationLogic {
     func presentNoData(response: CompanyDetails.Response) {
-        let viewModel = CompanyDetails.ViewModel(name: response.name, companyResult: response.companyResult)
+        let name = getNameAndSymbol(response.company)
+        let viewModel = CompanyDetails.ViewModel(name: name, companyResult: nil)
         viewController?.displayNoData(viewModel: viewModel)
     }
     
     func presentDetails(response: CompanyDetails.Response) {
-        guard let companyResult = response.companyResult else { return }
-        let open = "Open:".localized + "  " + companyResult.open
-        let previosClose = "Previos close:".localized + "  " + companyResult.previosClose
-        let high = "High:".localized + "  " + companyResult.high
-        let low = "Low:".localized + "  " + companyResult.low
-        let volume = "Volume:".localized + "  " + companyResult.volume
+        let name = getNameAndSymbol(response.company)
+        guard let details = response.details else { return }
+        let price = getAttributedString(details: details)
+        let open = "Open:".localized + "  " + details.open
+        let previosClose = "Previos close:".localized + "  " + details.previosClose
+        let high = "High:".localized + "  " + details.high
+        let low = "Low:".localized + "  " + details.low
+        let volume = "Volume:".localized + "  " + details.volume
         
-        let viewModel = CompanyDetails.ViewModel(name: response.name, companyResult: CompanyResult(priceAndChange: companyResult.priceAndChange, open: open, previosClose: previosClose, high: high, low: low, volume: volume))
+        let viewModel = CompanyDetails.ViewModel(name: name, companyResult: CompanyResult(priceAndChange: price, open: open, previosClose: previosClose, high: high, low: low, volume: volume))
         viewController?.displayDetails(viewModel: viewModel)
+    }
+}
+
+private extension CompanyDetailsPresenter {
+    func getNameAndSymbol(_ company: SelectedCompany) -> String {
+        guard let name = company.name, let symbol = company.symbol else { return ""}
+        let nameAndSymbol = name + " (" + symbol + ")"
+        return nameAndSymbol
+    }
+    
+    func getAttributedString(details: Details) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: details.price, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
+        var attrs: [NSAttributedString.Key : Any]
+        if details.change.first == "-" {
+            attrs = [NSAttributedString.Key.foregroundColor : UIColor.red]
+        }
+        else {
+            attrs = [NSAttributedString.Key.foregroundColor : UIColor.systemGreen]
+        }
+        let change = "  " + details.change + " (" + details.changePercent + ")"
+        let attributedChange = NSMutableAttributedString(string: change, attributes: attrs)
+        attributedString.append(attributedChange)
+        return attributedString
     }
 }
