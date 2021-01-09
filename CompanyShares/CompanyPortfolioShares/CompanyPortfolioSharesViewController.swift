@@ -141,6 +141,11 @@ extension CompanyPortfolioSharesViewController: UITableViewDataSource {
         cell.configure(shareWithPrices: share)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView,
+                   viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
 }
 
 // MARK: - UITableViewDelegate
