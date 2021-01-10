@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioSharesPresenter.swift
+//  PortfolioSharesPresenter.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/17/20.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol CompanyPortfolioSharesPresentationLogic {
-    func presentShares(response: CompanyPortfolioShares.Response)
+protocol PortfolioSharesPresentationLogic {
+    func presentShares(response: PortfolioShares.Response)
 }
 
-class CompanyPortfolioSharesPresenter {
-    weak var viewController: CompanyPortfolioSharesDisplayLogic?
+class PortfolioSharesPresenter {
+    weak var viewController: PortfolioSharesDisplayLogic?
 }
 
-// MARK: - CompanyPortfolioSharesPresentationLogic
-extension CompanyPortfolioSharesPresenter: CompanyPortfolioSharesPresentationLogic {
-    func presentShares(response: CompanyPortfolioShares.Response) {
+// MARK: - PortfolioSharesPresentationLogic
+extension PortfolioSharesPresenter: PortfolioSharesPresentationLogic {
+    func presentShares(response: PortfolioShares.Response) {
         var sharesWithPrices = [ShareWithPrices]()
         for share in response.shares {
             let totalPurchase = share.purchasePrice * Double(share.count)
@@ -27,12 +27,12 @@ extension CompanyPortfolioSharesPresenter: CompanyPortfolioSharesPresentationLog
             let shareWithPrices = ShareWithPrices(share: share, totalPriceAndChange: totalPriceAndChange, priceAndChange: priceAndChange)
             sharesWithPrices.append(shareWithPrices)
         }
-        let viewModel = CompanyPortfolioShares.ViewModel(shares: sharesWithPrices)
+        let viewModel = PortfolioShares.ViewModel(shares: sharesWithPrices)
         viewController?.displayShares(viewModel: viewModel)
     }
 }
     
-private extension CompanyPortfolioSharesPresenter {
+private extension PortfolioSharesPresenter {
     func getAttributedString(purchasePrice: Double, currentPrice: Double, isTotalPrice: Bool) -> NSMutableAttributedString {
         let currentPriceString = String(format: "%.2f", currentPrice)
         let attributedString = NSMutableAttributedString(string: currentPriceString, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])

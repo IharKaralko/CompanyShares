@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListWorker.swift
+//  PortfolioListWorker.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol CompanyPortfolioListWorkingLogic: class {
+protocol PortfolioListWorkingLogic: class {
     func fetchPrice(keyword: String, completion: @escaping (Price?, Error?) -> Void)
 }
 
-class CompanyPortfolioListWorker: CompanyPortfolioListWorkingLogic {
+class PortfolioListWorker: PortfolioListWorkingLogic {
     func fetchPrice(keyword: String, completion: @escaping (Price?, Error?) -> Void) {
         guard let url = Client.Endpoints.getPrice.getURL(keyword: keyword) else { return }
         Client.getPrice(url: url) {

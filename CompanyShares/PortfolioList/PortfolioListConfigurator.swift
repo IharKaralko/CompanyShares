@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListConfigurator.swift
+//  PortfolioListConfigurator.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,15 +7,15 @@
 
 import Foundation
 
-class CompanyPortfolioListConfigurator {
-    static let shared = CompanyPortfolioListConfigurator()
+class PortfolioListConfigurator {
+    static let shared = PortfolioListConfigurator()
     
-    func configure(with view: CompanyPortfolioListViewController) {
+    func configure(with view: PortfolioListViewController) {
         let viewController = view
-        let interactor = CompanyPortfolioListInteractor()
-        let presenter = CompanyPortfolioListPresenter()
-        let worker = CompanyPortfolioListWorker()
-        let router = CompanyPorfolioListRouter()
+        let interactor = PortfolioListInteractor()
+        let presenter = PortfolioListPresenter()
+        let worker = PortfolioListWorker()
+        let router = PorfolioListRouter()
         
         viewController.interactor = interactor
         viewController.router = router

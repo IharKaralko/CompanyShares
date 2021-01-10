@@ -28,7 +28,6 @@ class CompanyCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CompanyCollectionConfigurator.shared.configure(with: self)
-      //  interactor?.loadCompanyList()
         delegatesRegistration()
         collectionCellRegistration()
         longPressSetting()

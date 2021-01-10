@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioSharesInteractor.swift
+//  PortfolioSharesInteractor.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/17/20.
@@ -7,24 +7,24 @@
 
 import Foundation
 
-protocol CompanyPortfolioSharesBusinessLogic: class {
+protocol PortfolioSharesBusinessLogic: class {
     func fetchShares(porfolio: Portfolio)
     func remove(share: Share)
     func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio)
 }
 
-class CompanyPortfolioSharesInteractor {
-    var presenter: CompanyPortfolioSharesPresentationLogic?
-    var worker: CompanyPortfolioListWorkingLogic?
+class PortfolioSharesInteractor {
+    var presenter: PortfolioSharesPresentationLogic?
+    var worker: PortfolioListWorkingLogic?
     var dataSourceOfShares: DataSourceOfShareProtocol?
 }
 
-// MARK: - CompanyPortfolioSharesBusinessLogic
-extension CompanyPortfolioSharesInteractor: CompanyPortfolioSharesBusinessLogic {
+// MARK: - PortfolioSharesBusinessLogic
+extension PortfolioSharesInteractor: PortfolioSharesBusinessLogic {
     func fetchShares(porfolio: Portfolio) {
         guard let shares = dataSourceOfShares?.getShares(portfolio: porfolio) else { return }
         getCurrentPrice(shares: shares) {
-            let response = CompanyPortfolioShares.Response(shares: shares)
+            let response = PortfolioShares.Response(shares: shares)
             self.presenter?.presentShares(response: response)
         }
     }
@@ -39,7 +39,7 @@ extension CompanyPortfolioSharesInteractor: CompanyPortfolioSharesBusinessLogic 
     }
 }
 
-private extension CompanyPortfolioSharesInteractor {
+private extension PortfolioSharesInteractor {
     func getCurrentPrice(shares: [Share],  completion: @escaping () -> Void) {
         let userListDispatchGroup = DispatchGroup()
         for share in shares {

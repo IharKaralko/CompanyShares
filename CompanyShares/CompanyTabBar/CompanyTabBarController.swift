@@ -18,7 +18,7 @@ private extension CompanyTabBarController {
     func setupTabBar() {
         let companyList = CompanyListViewController()
         let companyDetails = CompanyDetailsViewController()
-        let portfolioList = CompanyPortfolioListViewController()
+        let portfolioList = PortfolioListViewController()
         
         let navControllerInterest = UINavigationController(rootViewController: companyList)
         navControllerInterest.tabBarItem = UITabBarItem(title: "Interests", image: UIImage(named: "interests"), selectedImage: nil )

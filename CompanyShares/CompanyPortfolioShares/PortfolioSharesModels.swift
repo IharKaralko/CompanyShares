@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioModels.swift
+//  PortfolioSharesModels.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/17/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CompanyPortfolioShares{
+enum PortfolioShares {
     struct Response {
         let shares: [Share]
     }

@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListTableViewCell.swift
+//  PortfolioListTableViewCell.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/9/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompanyPortfolioListTableViewCell: UITableViewCell {
+class PortfolioListTableViewCell: UITableViewCell {
     @IBOutlet private weak var currentPriceLabel: UILabel!
     @IBOutlet private weak var symbolLabel: UILabel!
     @IBOutlet private weak var purchaseLabel: UILabel!
@@ -18,7 +18,7 @@ class CompanyPortfolioListTableViewCell: UITableViewCell {
     }
 }
 
-extension CompanyPortfolioListTableViewCell {
+extension PortfolioListTableViewCell {
     func configure(_ portfolioWithPrices: PortfolioWithPrices) {
         symbolLabel.text = portfolioWithPrices.portfolio.name
         purchaseLabel.text = portfolioWithPrices.purchasePrice

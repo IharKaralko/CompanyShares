@@ -1,5 +1,5 @@
 //
-//  CompanyPorfolioModels.swift
+//  PorfolioListModels.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CompanyPortfolioList {
+enum PortfolioList {
     struct Response {
         let portfolio: Portfolio
         let purchasePrice: Double

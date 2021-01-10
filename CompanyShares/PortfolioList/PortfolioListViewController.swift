@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListViewController.swift
+//  PortfolioListViewController.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/9/20.
@@ -7,21 +7,21 @@
 
 import UIKit
 
-protocol CompanyPortfolioListDisplayLogic: class {
-    func displayPortfolioList(viewModel: CompanyPortfolioList.ViewModel)
+protocol PortfolioListDisplayLogic: class {
+    func displayPortfolioList(viewModel: PortfolioList.ViewModel)
 }
 
-class CompanyPortfolioListViewController: UIViewController {
+class PortfolioListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private var portfolios = [PortfolioWithPrices]()
     private let heightTableViewRow: CGFloat = 90
     
-    var interactor: CompanyPortfolioListBusinessLogic?
-    var router: CompanyPortfolioListRoutingLogic?
+    var interactor: PortfolioListBusinessLogic?
+    var router: PortfolioListRoutingLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CompanyPortfolioListConfigurator.shared.configure(with: self)
+        PortfolioListConfigurator.shared.configure(with: self)
         navigationBarSetting()
         delegatesRegistration()
         tableCellRegistration()
@@ -42,7 +42,7 @@ class CompanyPortfolioListViewController: UIViewController {
     }
 }
 
-private extension CompanyPortfolioListViewController {
+private extension PortfolioListViewController {
     func navigationBarSetting() {
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.title = "Portfolios".localized
@@ -111,7 +111,7 @@ private extension CompanyPortfolioListViewController {
     }
     
     func tableCellRegistration() {
-        let identifier = String(describing: CompanyPortfolioListTableViewCell.self)
+        let identifier = String(describing: PortfolioListTableViewCell.self)
         let nib = UINib.init(nibName: identifier, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
@@ -139,14 +139,14 @@ private extension CompanyPortfolioListViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension CompanyPortfolioListViewController: UITableViewDataSource {
+extension PortfolioListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return portfolios.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = String(describing: CompanyPortfolioListTableViewCell.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CompanyPortfolioListTableViewCell else {
+        let identifier = String(describing: PortfolioListTableViewCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PortfolioListTableViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
         let portfolioWithPrices = portfolios[indexPath.row]
@@ -161,7 +161,7 @@ extension CompanyPortfolioListViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension CompanyPortfolioListViewController: UITableViewDelegate {
+extension PortfolioListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let portfolio = portfolios[indexPath.row].portfolio
         guard let navVC = navigationController else { return }
@@ -186,8 +186,9 @@ extension CompanyPortfolioListViewController: UITableViewDelegate {
     }
 }
 
-extension CompanyPortfolioListViewController: CompanyPortfolioListDisplayLogic {
-    func displayPortfolioList(viewModel: CompanyPortfolioList.ViewModel) {
+// MARK: - PortfolioListDisplayLogic
+extension PortfolioListViewController: PortfolioListDisplayLogic {
+    func displayPortfolioList(viewModel: PortfolioList.ViewModel) {
         portfolios = viewModel.portfoliosWithPrice.sorted(by: { $0.portfolio.name ?? "" < $1.portfolio.name ?? ""})
         tableView.reloadData()
         updateEditButtonState()

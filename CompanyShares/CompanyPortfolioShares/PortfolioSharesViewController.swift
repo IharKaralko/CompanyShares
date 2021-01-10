@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioSharesViewController.swift
+//  PortfolioSharesViewController.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/16/20.
@@ -7,21 +7,21 @@
 
 import UIKit
 
-protocol CompanyPortfolioSharesDisplayLogic: class {
-    func displayShares(viewModel: CompanyPortfolioShares.ViewModel)
+protocol PortfolioSharesDisplayLogic: class {
+    func displayShares(viewModel: PortfolioShares.ViewModel)
 }
 
-class CompanyPortfolioSharesViewController: UIViewController {
+class PortfolioSharesViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private var shares = [ShareWithPrices]()
     private let heightTableViewRow: CGFloat = 140
     
     var portfolio: Portfolio!
-    var interactor: CompanyPortfolioSharesBusinessLogic?
+    var interactor: PortfolioSharesBusinessLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CompanyPortfolioSharesConfigurator.shared.configure(with: self)
+        PortfolioSharesConfigurator.shared.configure(with: self)
         navigationBarSetting()
         toolbarSetting()
         delegatesRegistration()
@@ -39,7 +39,7 @@ class CompanyPortfolioSharesViewController: UIViewController {
     }
 }
 
-private extension CompanyPortfolioSharesViewController {
+private extension PortfolioSharesViewController {
     func navigationBarSetting() {
         navigationItem.rightBarButtonItem = editButtonItem
         navigationItem.title = portfolio.name
@@ -106,7 +106,7 @@ private extension CompanyPortfolioSharesViewController {
     }
     
     func tableCellRegistration() {
-        let identifier = String(describing: CompanyPortfolioSharesTableViewCell.self)
+        let identifier = String(describing: PortfolioSharesTableViewCell.self)
         let nib = UINib.init(nibName: identifier, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: identifier)
     }
@@ -127,14 +127,14 @@ private extension CompanyPortfolioSharesViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension CompanyPortfolioSharesViewController: UITableViewDataSource {
+extension PortfolioSharesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shares.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = String(describing: CompanyPortfolioSharesTableViewCell.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CompanyPortfolioSharesTableViewCell else {
+        let identifier = String(describing: PortfolioSharesTableViewCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PortfolioSharesTableViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
         let share = shares[indexPath.row]
@@ -149,7 +149,7 @@ extension CompanyPortfolioSharesViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension CompanyPortfolioSharesViewController: UITableViewDelegate {
+extension PortfolioSharesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightTableViewRow
     }
@@ -163,9 +163,9 @@ extension CompanyPortfolioSharesViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - CompanyPortfolioSharesDisplayLogic
-extension CompanyPortfolioSharesViewController: CompanyPortfolioSharesDisplayLogic {
-    func displayShares(viewModel: CompanyPortfolioShares.ViewModel) {
+// MARK: - PortfolioSharesDisplayLogic
+extension PortfolioSharesViewController: PortfolioSharesDisplayLogic {
+    func displayShares(viewModel: PortfolioShares.ViewModel) {
         shares = viewModel.shares
         tableView.reloadData()
         updateEditButtonState()

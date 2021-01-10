@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioSharesTableViewCell.swift
+//  PortfolioSharesTableViewCell.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/17/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompanyPortfolioSharesTableViewCell: UITableViewCell {
+class PortfolioSharesTableViewCell: UITableViewCell {
     @IBOutlet private weak var totalNameLabel: UILabel!
     @IBOutlet private weak var currentPriceNameLabel: UILabel!
     @IBOutlet private weak var countNameLabel: UILabel!
@@ -26,7 +26,7 @@ class CompanyPortfolioSharesTableViewCell: UITableViewCell {
     }
 }
 
-extension CompanyPortfolioSharesTableViewCell {
+extension PortfolioSharesTableViewCell {
     func configure(shareWithPrices: ShareWithPrices) {
         symbolLabel.text = shareWithPrices.share.symbol
         totalCurrentPrice.attributedText = shareWithPrices.totalPriceAndChange
@@ -38,7 +38,7 @@ extension CompanyPortfolioSharesTableViewCell {
     }
 }
 
-private extension CompanyPortfolioSharesTableViewCell {
+private extension PortfolioSharesTableViewCell {
     func setNamesForLabel() {
         purchaseNameLabel.text = "Purchase:".localized
         countNameLabel.text = "Amount:".localized

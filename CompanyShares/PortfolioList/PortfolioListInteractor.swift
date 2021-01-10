@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListInteractor.swift
+//  PortfolioListInteractor.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,24 +7,24 @@
 
 import UIKit
 
-protocol CompanyPortfolioListBusinessLogic: class {
+protocol PortfolioListBusinessLogic: class {
     func fetchPortfolios()
     func remove(portfolio: Portfolio)
     func addPortfolio(name: String)
     func update(portfolio: Portfolio, name: String)
 }
 
-class CompanyPortfolioListInteractor {
-    var presenter: CompanyPortfolioListPresentationLogic?
-    var worker: CompanyPortfolioListWorkingLogic?
+class PortfolioListInteractor {
+    var presenter: PortfolioListPresentationLogic?
+    var worker: PortfolioListWorkingLogic?
     var dataSourceOfPortfolio: DataSourceOfPortfolioProtocol?
     var dataSourceOfShares: DataSourceOfShareProtocol?
 }
 
-// MARK: - CompanyPortfolioListBusinessLogic
-extension CompanyPortfolioListInteractor: CompanyPortfolioListBusinessLogic {
+// MARK: - PortfolioListBusinessLogic
+extension PortfolioListInteractor: PortfolioListBusinessLogic {
     func fetchPortfolios() {
-        var responses = [CompanyPortfolioList.Response]()
+        var responses = [PortfolioList.Response]()
         guard let portfolios = dataSourceOfPortfolio?.getPortfolios() else { return }
         let userListDispatchGroup = DispatchGroup()
         
@@ -36,7 +36,7 @@ extension CompanyPortfolioListInteractor: CompanyPortfolioListBusinessLogic {
                 userListDispatchGroup.enter()
                 getCurrentPrice(shares: shares) { current in
                     currentPrice = current
-                    let response = CompanyPortfolioList.Response(portfolio: portfolio, purchasePrice: purchasePrice, currentPrice: currentPrice)
+                    let response = PortfolioList.Response(portfolio: portfolio, purchasePrice: purchasePrice, currentPrice: currentPrice)
                     responses.append(response)
                     userListDispatchGroup.leave()
                 }
@@ -61,7 +61,7 @@ extension CompanyPortfolioListInteractor: CompanyPortfolioListBusinessLogic {
     }
 }
 
-private extension CompanyPortfolioListInteractor {
+private extension PortfolioListInteractor {
     func getCurrentPrice(shares: [Share], completion: @escaping (Double) -> Void) {
         let userListDispatchGroup = DispatchGroup()
         for share in shares {

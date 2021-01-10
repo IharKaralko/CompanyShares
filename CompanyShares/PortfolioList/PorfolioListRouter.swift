@@ -1,5 +1,5 @@
 //
-//  CompanyPorfolioListRouter.swift
+//  PorfolioListRouter.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol CompanyPortfolioListRoutingLogic: class {
+protocol PortfolioListRoutingLogic: class {
     func routeToPortfolioDetails(portfolio: Portfolio, navVC: UINavigationController)
 }
 
-class CompanyPorfolioListRouter: CompanyPortfolioListRoutingLogic {
+class PorfolioListRouter: PortfolioListRoutingLogic {
     func routeToPortfolioDetails(portfolio: Portfolio, navVC: UINavigationController) {
-        let portfolioSharesVC = CompanyPortfolioSharesViewController()
+        let portfolioSharesVC = PortfolioSharesViewController()
         portfolioSharesVC.portfolio = portfolio
         navVC.pushViewController(portfolioSharesVC, animated: true)
     }

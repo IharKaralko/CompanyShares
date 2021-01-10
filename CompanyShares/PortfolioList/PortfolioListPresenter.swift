@@ -1,5 +1,5 @@
 //
-//  CompanyPortfolioListPresenter.swift
+//  PortfolioListPresenter.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 12/14/20.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol CompanyPortfolioListPresentationLogic {
-    func presentPortfolios(_ responses: [CompanyPortfolioList.Response])
+protocol PortfolioListPresentationLogic {
+    func presentPortfolios(_ responses: [PortfolioList.Response])
 }
 
-class CompanyPortfolioListPresenter {
-    weak var viewController: CompanyPortfolioListDisplayLogic?
+class PortfolioListPresenter {
+    weak var viewController: PortfolioListDisplayLogic?
 }
 
-// MARK: - CompanyPortfolioListPresentationLogic
-extension CompanyPortfolioListPresenter: CompanyPortfolioListPresentationLogic {
-    func presentPortfolios(_ responses: [CompanyPortfolioList.Response]) {
+// MARK: - PortfolioListPresentationLogic
+extension PortfolioListPresenter: PortfolioListPresentationLogic {
+    func presentPortfolios(_ responses: [PortfolioList.Response]) {
         var portfoliosWithPrices = [PortfolioWithPrices]()
         for response in responses {
             let purchasePriceFormat = String(format: "%.2f", response.purchasePrice)
@@ -25,12 +25,12 @@ extension CompanyPortfolioListPresenter: CompanyPortfolioListPresentationLogic {
             let portfolioWithPrices = PortfolioWithPrices(portfolio: response.portfolio, purchasePrice: purchasePriceFormat, priceAndChange: priceAndChange)
             portfoliosWithPrices.append(portfolioWithPrices)
         }
-        let viewModel = CompanyPortfolioList.ViewModel(portfoliosWithPrice: portfoliosWithPrices)
+        let viewModel = PortfolioList.ViewModel(portfoliosWithPrice: portfoliosWithPrices)
         viewController?.displayPortfolioList(viewModel: viewModel)
     }
 }
 
-private extension CompanyPortfolioListPresenter {
+private extension PortfolioListPresenter {
     func getAttributedString(purchasePrice: Double, currentPrice: Double) -> NSMutableAttributedString {
         let currentPriceString = String(format: "%.2f", currentPrice)
         let attributedString = NSMutableAttributedString(string: currentPriceString, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
