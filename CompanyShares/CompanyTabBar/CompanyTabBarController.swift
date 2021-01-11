@@ -17,6 +17,7 @@ class CompanyTabBarController: UITabBarController {
 private extension CompanyTabBarController {
     func setupTabBar() {
         let companyList = CompanyListViewController()
+        companyList.isAddShares = false
         let companyDetails = CompanyDetailsViewController()
         let portfolioList = PortfolioListViewController()
         

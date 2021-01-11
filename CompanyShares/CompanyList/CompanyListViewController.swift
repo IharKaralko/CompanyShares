@@ -21,11 +21,13 @@ class CompanyListViewController: UIViewController {
     @IBOutlet private weak var searchBar: UISearchBar!
     
     private var possibleOptions = [Company]()
-    private var childViewController: ChildViewControllerProtocol?
+    private var childCollectionViewController: CompanyCollectionViewControllerProtocol?
+    private var childAddSharesViewController: AddSharesViewControllerProtocol?
     private let heightTableViewRow: CGFloat = 48
     
     var interactor: CompanyListBusinessLogic?
     var router: CompanyListRoutingLogic?
+    var isAddShares: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,9 @@ class CompanyListViewController: UIViewController {
         setChild()
     }
     
-    override func viewWillAppear(_ animated: Bool) { NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) { NotificationCenter.default.removeObserver(self)
@@ -45,9 +49,7 @@ class CompanyListViewController: UIViewController {
 }
 
 private extension CompanyListViewController {
-    func setChild() {
-        let child = CompanyCollectionViewController()
-        child.routerDelegate = self
+    func addChildToConteiner(_ child: UIViewController) {
         child.willMove(toParent: self)
         addChild(child)
         child.view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,11 +61,24 @@ private extension CompanyListViewController {
             child.view.topAnchor.constraint(equalTo: containerView.topAnchor),
             child.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
-        
         child.didMove(toParent: self)
-        childViewController = child
+        
     }
-    
+ 
+    func setChild() {
+        guard let isAddShares = isAddShares else { return }
+        if isAddShares {
+            let child = AddSharesViewController()
+            addChildToConteiner(child)
+             childAddSharesViewController = child
+        } else {
+            let child = CompanyCollectionViewController()
+            addChildToConteiner(child)
+            child.routerDelegate = self
+            childCollectionViewController = child
+        }
+    }
+
     @objc
     func adjustForKeyboard(notification: Notification) {
         if let userInfo = notification.userInfo, let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -72,11 +87,12 @@ private extension CompanyListViewController {
     }
     
     func navigationBarSetting() {
-        navigationItem.title = "Company Share".localized
+        guard let isAddShares = isAddShares else { return }
+        navigationItem.title = isAddShares ? "Add Shares".localized : "Company Share".localized
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
-       
+        
     }
     
     func delegatesRegistration() {
@@ -149,7 +165,12 @@ extension CompanyListViewController: UITableViewDataSource {
 extension CompanyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let company = possibleOptions[indexPath.row]
-        childViewController?.addCompany(company: company)
+        guard let isAddShares = isAddShares else { return }
+        if isAddShares {
+            childAddSharesViewController?.addShares(company: company)
+        } else {
+            childCollectionViewController?.addCompany(company: company)
+        }
         searchBar.showsCancelButton = false
         finishSearch()
     }

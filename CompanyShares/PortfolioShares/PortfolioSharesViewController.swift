@@ -34,6 +34,10 @@ class PortfolioSharesViewController: UIViewController {
         tableView.setEditing(editing, animated: animated)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
@@ -43,7 +47,8 @@ private extension PortfolioSharesViewController {
     func navigationBarSetting() {
         navigationItem.rightBarButtonItem = editButtonItem
         navigationItem.title = portfolio.name
-        navigationController?.isToolbarHidden = false
+       // navigationController?.isToolbarHidden = false
+        navigationItem.backButtonTitle = ""
     }
     
     func toolbarSetting() {
@@ -51,7 +56,7 @@ private extension PortfolioSharesViewController {
         navigationController?.toolbar.tintColor = UIColor.black
         navigationController?.toolbar.barTintColor = #colorLiteral(red: 1, green: 0.7389495218, blue: 0.7303172605, alpha: 1)
         items.append( UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil) )
-        items.append(UIBarButtonItem(title: "Add".localized, style: .plain, target: self, action: #selector(alertForAddShares)))
+        items.append(UIBarButtonItem(title: "Add".localized, style: .plain, target: self, action: #selector(add)))
         self.toolbarItems = items
     }
     
@@ -95,6 +100,14 @@ private extension PortfolioSharesViewController {
         alert.addAction(saveAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    @objc
+    func add() {
+        let addShares = CompanyListViewController()
+        addShares.isAddShares = true
+        navigationController?.pushViewController(addShares, animated: true)
+    }
+    
     
     func updateEditButtonState() {
         navigationItem.rightBarButtonItem?.isEnabled =  shares.count > 0

@@ -23,7 +23,7 @@
 		4360BD2E258B61ED009F9C75 /* PortfolioSharesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD2D258B61ED009F9C75 /* PortfolioSharesModels.swift */; };
 		4360BD31258B6213009F9C75 /* PortfolioSharesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD30258B6213009F9C75 /* PortfolioSharesConfigurator.swift */; };
 		4360BD36258B629A009F9C75 /* PortfolioSharesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360BD34258B629A009F9C75 /* PortfolioSharesTableViewCell.swift */; };
-		4360BD37258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4360BD35258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.xib */; };
+		4360BD37258B629A009F9C75 /* PortfolioSharesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4360BD35258B629A009F9C75 /* PortfolioSharesTableViewCell.xib */; };
 		4363E388256E5EF200345690 /* CompaniesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363E387256E5EF200345690 /* CompaniesResponse.swift */; };
 		4363E38C256E99C200345690 /* CompanyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */; };
 		4363E38F256E9A1200345690 /* CompanyDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */; };
@@ -93,7 +93,7 @@
 		4360BD2D258B61ED009F9C75 /* PortfolioSharesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioSharesModels.swift; sourceTree = "<group>"; };
 		4360BD30258B6213009F9C75 /* PortfolioSharesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioSharesConfigurator.swift; sourceTree = "<group>"; };
 		4360BD34258B629A009F9C75 /* PortfolioSharesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioSharesTableViewCell.swift; sourceTree = "<group>"; };
-		4360BD35258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyPortfolioSharesTableViewCell.xib; sourceTree = "<group>"; };
+		4360BD35258B629A009F9C75 /* PortfolioSharesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PortfolioSharesTableViewCell.xib; sourceTree = "<group>"; };
 		4363E387256E5EF200345690 /* CompaniesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesResponse.swift; sourceTree = "<group>"; };
 		4363E38B256E99C200345690 /* CompanyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsViewController.swift; sourceTree = "<group>"; };
 		4363E38E256E9A1200345690 /* CompanyDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyDetailsViewController.xib; sourceTree = "<group>"; };
@@ -196,13 +196,13 @@
 			path = CompanyCollection;
 			sourceTree = "<group>";
 		};
-		4360BD33258B6230009F9C75 /* CompanyPortfolioSharesTableViewCell */ = {
+		4360BD33258B6230009F9C75 /* PortfolioSharesTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				4360BD34258B629A009F9C75 /* PortfolioSharesTableViewCell.swift */,
-				4360BD35258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.xib */,
+				4360BD35258B629A009F9C75 /* PortfolioSharesTableViewCell.xib */,
 			);
-			path = CompanyPortfolioSharesTableViewCell;
+			path = PortfolioSharesTableViewCell;
 			sourceTree = "<group>";
 		};
 		4363E38A256E992800345690 /* CompanyDetails */ = {
@@ -244,10 +244,10 @@
 			path = CompanyTabBar;
 			sourceTree = "<group>";
 		};
-		4382CA712581347100C2F221 /* CompanyPortfolioShares */ = {
+		4382CA712581347100C2F221 /* PortfolioShares */ = {
 			isa = PBXGroup;
 			children = (
-				4360BD33258B6230009F9C75 /* CompanyPortfolioSharesTableViewCell */,
+				4360BD33258B6230009F9C75 /* PortfolioSharesTableViewCell */,
 				43644BAD258A2CBE007AE170 /* PortfolioSharesViewController.swift */,
 				43644BAE258A2CBE007AE170 /* PortfolioSharesViewController.xib */,
 				4360BD24258B6173009F9C75 /* PortfolioSharesInteractor.swift */,
@@ -255,7 +255,7 @@
 				4360BD2D258B61ED009F9C75 /* PortfolioSharesModels.swift */,
 				4360BD30258B6213009F9C75 /* PortfolioSharesConfigurator.swift */,
 			);
-			path = CompanyPortfolioShares;
+			path = PortfolioShares;
 			sourceTree = "<group>";
 		};
 		4382CA72258134FD00C2F221 /* PortfolioList */ = {
@@ -297,10 +297,30 @@
 		438D67B125AB359A0030979D /* AddShares */ = {
 			isa = PBXGroup;
 			children = (
-				438D67B225AB359A0030979D /* AddSharesViewController.xib */,
 				438D67B325AB359A0030979D /* AddSharesViewController.swift */,
+				438D67B225AB359A0030979D /* AddSharesViewController.xib */,
 			);
 			path = AddShares;
+			sourceTree = "<group>";
+		};
+		438D67C225AB39D90030979D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4363E396256EA1BE00345690 /* Assets.xcassets */,
+				43986F4D2573FFA900EF002D /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		438D67C525AB3BB90030979D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				43BF864A256556E200394FAD /* Info.plist */,
+				43BF863E256556E100394FAD /* SceneDelegate.swift */,
+				43BF8647256556E200394FAD /* LaunchScreen.storyboard */,
+				43BF863C256556E100394FAD /* AppDelegate.swift */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		43939057257104AA003E8675 /* Model */ = {
@@ -341,23 +361,19 @@
 		43BF863B256556E100394FAD /* CompanyShares */ = {
 			isa = PBXGroup;
 			children = (
-				43A07C5125935BD20055995A /* Extension */,
+				438D67C525AB3BB90030979D /* SupportingFiles */,
 				438D67B125AB359A0030979D /* AddShares */,
-				4382CA72258134FD00C2F221 /* PortfolioList */,
-				4382CA712581347100C2F221 /* CompanyPortfolioShares */,
-				4377A4AC257F8CC100E6DF16 /* CompanyTabBar */,
 				435D7894257692B300A3385E /* CompanyCollection */,
 				4363E38A256E992800345690 /* CompanyDetails */,
 				43BF865225655B0F00394FAD /* CompanyList */,
+				4377A4AC257F8CC100E6DF16 /* CompanyTabBar */,
 				43939057257104AA003E8675 /* Model */,
+				43A07C5125935BD20055995A /* Extension */,
 				436FFF6F25666A660093190C /* Service */,
 				436DE7C12578F27500FB02B8 /* Storage */,
-				43BF863C256556E100394FAD /* AppDelegate.swift */,
-				43BF863E256556E100394FAD /* SceneDelegate.swift */,
-				43BF8647256556E200394FAD /* LaunchScreen.storyboard */,
-				4363E396256EA1BE00345690 /* Assets.xcassets */,
-				43BF864A256556E200394FAD /* Info.plist */,
-				43986F4D2573FFA900EF002D /* Localizable.strings */,
+				4382CA72258134FD00C2F221 /* PortfolioList */,
+				4382CA712581347100C2F221 /* PortfolioShares */,
+				438D67C225AB39D90030979D /* Resources */,
 			);
 			path = CompanyShares;
 			sourceTree = "<group>";
@@ -461,7 +477,7 @@
 				43644BB0258A2CBE007AE170 /* PortfolioSharesViewController.xib in Resources */,
 				4382CA7625813A4C00C2F221 /* PortfolioListViewController.xib in Resources */,
 				435D7898257692F100A3385E /* CompanyCollectionViewController.xib in Resources */,
-				4360BD37258B629A009F9C75 /* CompanyPortfolioSharesTableViewCell.xib in Resources */,
+				4360BD37258B629A009F9C75 /* PortfolioSharesTableViewCell.xib in Resources */,
 				43BF8649256556E200394FAD /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,7 +695,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7R57YX4YHA;
-				INFOPLIST_FILE = CompanyShares/Info.plist;
+				INFOPLIST_FILE = CompanyShares/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -699,7 +715,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7R57YX4YHA;
-				INFOPLIST_FILE = CompanyShares/Info.plist;
+				INFOPLIST_FILE = CompanyShares/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

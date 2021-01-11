@@ -11,7 +11,7 @@ protocol CompanyCollectionDisplayLogic: class {
     func displayCompany(viewModel: CompanyCollection.ViewModel)
 }
 
-protocol ChildViewControllerProtocol: class {
+protocol CompanyCollectionViewControllerProtocol: class {
     var routerDelegate: CompanyListRouterProtocol? { set get }
     func addCompany(company: Company)
 }
@@ -127,8 +127,8 @@ extension CompanyCollectionViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - ChildViewControllerProtocol
-extension CompanyCollectionViewController: ChildViewControllerProtocol {
+// MARK: - CompanyCollectionViewControllerProtocol
+extension CompanyCollectionViewController: CompanyCollectionViewControllerProtocol {
     func addCompany(company: Company) {
         interactor?.add(company: company)
     }
