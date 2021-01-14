@@ -26,7 +26,7 @@ class PortfolioSharesViewController: UIViewController {
         toolbarSetting()
         delegatesRegistration()
         tableCellRegistration()
-        interactor?.fetchShares(porfolio: portfolio)
+       // interactor?.fetchShares(porfolio: portfolio)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -36,6 +36,7 @@ class PortfolioSharesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = false
+        interactor?.fetchShares(porfolio: portfolio)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -71,7 +72,9 @@ private extension PortfolioSharesViewController {
         let saveAction = UIAlertAction(title:"Save".localized, style: .default) { [weak self] _ in
             guard let portfolio = self?.portfolio else {return }
             guard let symbol = symbolTextField.text, let count = Int64(countTextField.text ?? ""), let price = Double(priceTextField.text ?? "") else { return }
-            self?.addShare(symbol: symbol, count: count, price: price, portfolio: portfolio)}
+       //     self?.addShare(symbol: symbol, count: count, price: price, portfolio: portfolio)
+            
+        }
         
         saveAction.isEnabled = false
         alert.addTextField { textField in
@@ -105,6 +108,7 @@ private extension PortfolioSharesViewController {
     func add() {
         let addShares = CompanyListViewController()
         addShares.isAddShares = true
+        addShares.portfolio = portfolio
         navigationController?.pushViewController(addShares, animated: true)
     }
     
@@ -134,9 +138,9 @@ private extension PortfolioSharesViewController {
         updateEditButtonState()
     }
     
-    func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio) {
-        interactor?.addShare(symbol: symbol, count: count, price: price, portfolio: portfolio)
-    }
+//    func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio) {
+//        interactor?.addShare(symbol: symbol, count: count, purchasePrice: price, portfolio: portfolio)
+//    }
 }
 
 // MARK: - UITableViewDataSource

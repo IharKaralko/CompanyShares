@@ -14,7 +14,7 @@ class PortfolioListConfigurator {
         let viewController = view
         let interactor = PortfolioListInteractor()
         let presenter = PortfolioListPresenter()
-        let worker = PortfolioListWorker()
+        let worker = CompanyDetailsWorker() //PortfolioListWorker()
         let router = PorfolioListRouter()
         
         viewController.interactor = interactor

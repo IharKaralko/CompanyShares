@@ -13,6 +13,7 @@ protocol CompanyListDisplayLogic: class {
 
 protocol CompanyListRouterProtocol: class {
     func routToDetails(company: SelectedCompany)
+    func popVC()
 }
 
 class CompanyListViewController: UIViewController {
@@ -28,6 +29,7 @@ class CompanyListViewController: UIViewController {
     var interactor: CompanyListBusinessLogic?
     var router: CompanyListRoutingLogic?
     var isAddShares: Bool?
+    var portfolio: Portfolio?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +71,10 @@ private extension CompanyListViewController {
         guard let isAddShares = isAddShares else { return }
         if isAddShares {
             let child = AddSharesViewController()
+            child.portfolio = portfolio
             addChildToConteiner(child)
-             childAddSharesViewController = child
+            child.routerDelegate = self
+            childAddSharesViewController = child
         } else {
             let child = CompanyCollectionViewController()
             addChildToConteiner(child)
@@ -88,7 +92,7 @@ private extension CompanyListViewController {
     
     func navigationBarSetting() {
         guard let isAddShares = isAddShares else { return }
-        navigationItem.title = isAddShares ? "Add Shares".localized : "Company Share".localized
+        navigationItem.title = isAddShares ? "Add Shares".localized : NSLocalizedString("Company Shares", comment: "CompanyList")
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
@@ -193,5 +197,9 @@ extension CompanyListViewController: CompanyListRouterProtocol {
     func routToDetails(company: SelectedCompany) {
         guard let navVC = navigationController else { return }
         router?.routeToCopmanyDetails(company: company, navVC: navVC)
+    }
+    
+    func popVC() {
+        navigationController?.popViewController(animated: true)
     }
 }

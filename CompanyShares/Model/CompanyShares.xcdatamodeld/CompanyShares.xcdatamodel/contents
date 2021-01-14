@@ -12,6 +12,7 @@
     <entity name="Share" representedClassName="Share" syncable="YES" codeGenerationType="class">
         <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="currentPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="purchasePrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
@@ -19,7 +20,7 @@
     </entity>
     <elements>
         <element name="Portfolio" positionX="-3683.13671875" positionY="-34.3984375" width="128" height="88"/>
-        <element name="Share" positionX="-3902.23046875" positionY="-52.93359375" width="128" height="133"/>
         <element name="SelectedCompany" positionX="-3789" positionY="0" width="128" height="73"/>
+        <element name="Share" positionX="-3902.23046875" positionY="-52.93359375" width="128" height="148"/>
     </elements>
 </model>

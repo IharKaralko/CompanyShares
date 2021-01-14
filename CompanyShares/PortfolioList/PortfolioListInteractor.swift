@@ -16,7 +16,8 @@ protocol PortfolioListBusinessLogic: class {
 
 class PortfolioListInteractor {
     var presenter: PortfolioListPresentationLogic?
-    var worker: PortfolioListWorkingLogic?
+   // var worker: PortfolioListWorkingLogic?
+    var worker: CompanyDetailsWorkingLogic?
     var dataSourceOfPortfolio: DataSourceOfPortfolioProtocol?
     var dataSourceOfShares: DataSourceOfShareProtocol?
 }
@@ -65,17 +66,24 @@ private extension PortfolioListInteractor {
     func getCurrentPrice(shares: [Share], completion: @escaping (Double) -> Void) {
         let userListDispatchGroup = DispatchGroup()
         for share in shares {
-            guard let symbol = share.symbol else { return }
+            guard let symbol = share.symbol, let date = share.date else { return }
+            if Date().timeIntervalSince(date) > 300 {
             userListDispatchGroup.enter()
-            worker?.fetchPrice(keyword: symbol) {
-                price, error in
-                if let currentPrice = price {
-                    share.currentPrice = currentPrice.price
-                } else {
-                    share.currentPrice = 0
-                }
+                worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
+                    if let details = details {
+                        share.currentPrice = Double(details.price) ?? 0
+                        self?.dataSourceOfShares?.update(share: share, currentPrice: share.currentPrice, date: Date())
+                    }
+                    //  worker?.fetchPrice(keyword: symbol) {
+//                price, error in
+//                if let currentPrice = price {
+//                    share.currentPrice = currentPrice.price
+//                } else {
+//                    share.currentPrice = 0
+//                }
                 userListDispatchGroup.leave()
             }
+        }
         }
         userListDispatchGroup.notify(queue: .main) {
             let currentPrice = shares.reduce(0) { $0 + $1.currentPrice * Double($1.count) }

@@ -5,12 +5,18 @@
   Created by Ihar_Karalko on 11/29/20.
   
 */
+ 
+/* CompanyList */
+"Company Shares" = "Акции";
 
-"Company Share" = "Акции компаний";
+/* rrr */
+"Company Shares" = "Акции компаний";
+
 "Input ticker or name company" = "Введите тикер или название компании";
 "Attention!" = "Внимание!";
 "Remove company?" = "Удалить компанию?";
 "OK" = "ОК";
+
 "Cancel" = "Отменить";
 "No data available" = "Данные недоступны";
 "Open:" = "Открытие:";
@@ -35,3 +41,5 @@
 "Ticker" = "Тикер";
 "Amount" = "Количество";
 "Price" = "Цена";
+"Not available" = "Не доступна";
+"Enter new shares details" = "Введите данные о новых акциях";
