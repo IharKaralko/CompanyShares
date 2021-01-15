@@ -45,11 +45,11 @@ class PortfolioListViewController: UIViewController {
 private extension PortfolioListViewController {
     func navigationBarSetting() {
         navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.title = "Portfolios".localized
+        navigationItem.title = "PortfolioList_Portfolios".localized
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add".localized, style: .plain, target: self, action: #selector(addNewPortfolio))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "PortfolioList_Add".localized, style: .plain, target: self, action: #selector(addNewPortfolio))
     }
     
     @objc
@@ -59,17 +59,17 @@ private extension PortfolioListViewController {
     
     func alertForAddAndUpdatePortfolio(_ portfolioWithPrices: PortfolioWithPrices? = nil) {
         var alertTextField = UITextField()
-        var title = "New Portfolio".localized
-        var doneButton = "Save".localized
+        var title = "PortfolioList_New_Portfolio".localized
+        var doneButton = "PortfolioList_Save".localized
         
         if portfolioWithPrices != nil {
-            title = "Edit Portfolio".localized
-            doneButton = "Update".localized
+            title = "PortfolioList_Edit_Portfolio".localized
+            doneButton = "PortfolioList_Update".localized
         }
         
-        let alert = UIAlertController(title: title,  message: "Enter a name for this portfolio".localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: title,  message: "PortfolioList_Enter_a_name_for_this_portfolio".localized, preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "PortfolioList_Cancel".localized, style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: doneButton, style: .default) { [weak self] _ in
             guard let newName = alertTextField.text else { return }
             if let portfolioWithPrices = portfolioWithPrices {
@@ -86,7 +86,7 @@ private extension PortfolioListViewController {
                 alertTextField.text = portfolioWithPrices.portfolio.name
             }
             
-            textField.placeholder = "Name".localized
+            textField.placeholder = "PortfolioList_Name".localized
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main) { notif in
                 if let text = textField.text, !(text.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty {
                     saveAction.isEnabled = true
@@ -173,14 +173,13 @@ extension PortfolioListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { [weak self] (_, _, _) in
+        let deleteAction = UIContextualAction(style: .normal, title: "PortfolioList_Delete".localized, handler: { [weak self] (_, _, _) in
             self?.deletePortfolio(at: indexPath)
         })
         
-        let updateAction = UIContextualAction(style: .normal, title: "Update", handler: { [weak self] (_, _, _) in
+        let updateAction = UIContextualAction(style: .normal, title: "PortfolioList_Update".localized, handler: { [weak self] (_, _, _) in
             self?.alertForAddAndUpdatePortfolio(self?.portfolios[indexPath.row])
         })
-        
         deleteAction.backgroundColor = .red
         return UISwipeActionsConfiguration(actions: [updateAction, deleteAction])
     }

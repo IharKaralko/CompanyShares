@@ -20,8 +20,8 @@ extension PortfolioSharesPresenter: PortfolioSharesPresentationLogic {
     func presentShares(response: PortfolioShares.Response) {
         var sharesWithPrices = [ShareWithPrices]()
         for share in response.shares {
-            let totalPurchase = share.purchasePrice * Double(share.count)
-            let totalCurrentPrice = share.currentPrice * Double(share.count)
+            let totalPurchase = share.purchasePrice * Double(share.amount)
+            let totalCurrentPrice = share.currentPrice * Double(share.amount)
             let totalPriceAndChange = getAttributedString(purchasePrice: totalPurchase, currentPrice: totalCurrentPrice, isTotalPrice: true)
             let priceAndChange = getAttributedString(purchasePrice: share.purchasePrice, currentPrice: share.currentPrice, isTotalPrice: false)
             let shareWithPrices = ShareWithPrices(share: share, totalPriceAndChange: totalPriceAndChange, priceAndChange: priceAndChange)
@@ -31,7 +31,7 @@ extension PortfolioSharesPresenter: PortfolioSharesPresentationLogic {
         viewController?.displayShares(viewModel: viewModel)
     }
 }
-    
+
 private extension PortfolioSharesPresenter {
     func getAttributedString(purchasePrice: Double, currentPrice: Double, isTotalPrice: Bool) -> NSMutableAttributedString {
         let currentPriceString = String(format: "%.2f", currentPrice)

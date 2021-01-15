@@ -26,7 +26,6 @@ class PortfolioSharesViewController: UIViewController {
         toolbarSetting()
         delegatesRegistration()
         tableCellRegistration()
-       // interactor?.fetchShares(porfolio: portfolio)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -48,7 +47,6 @@ private extension PortfolioSharesViewController {
     func navigationBarSetting() {
         navigationItem.rightBarButtonItem = editButtonItem
         navigationItem.title = portfolio.name
-       // navigationController?.isToolbarHidden = false
         navigationItem.backButtonTitle = ""
     }
     
@@ -57,55 +55,12 @@ private extension PortfolioSharesViewController {
         navigationController?.toolbar.tintColor = UIColor.black
         navigationController?.toolbar.barTintColor = #colorLiteral(red: 1, green: 0.7389495218, blue: 0.7303172605, alpha: 1)
         items.append( UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil) )
-        items.append(UIBarButtonItem(title: "Add".localized, style: .plain, target: self, action: #selector(add)))
+        items.append(UIBarButtonItem(title: "PortfolioShares_Add".localized, style: .plain, target: self, action: #selector(addShares)))
         self.toolbarItems = items
     }
     
     @objc
-    func alertForAddShares() {
-        var symbolTextField = UITextField()
-        var countTextField = UITextField()
-        var priceTextField = UITextField()
-        
-        let alert = UIAlertController(title: "New Shares".localized,  message: "Enter new shares details".localized, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        let saveAction = UIAlertAction(title:"Save".localized, style: .default) { [weak self] _ in
-            guard let portfolio = self?.portfolio else {return }
-            guard let symbol = symbolTextField.text, let count = Int64(countTextField.text ?? ""), let price = Double(priceTextField.text ?? "") else { return }
-       //     self?.addShare(symbol: symbol, count: count, price: price, portfolio: portfolio)
-            
-        }
-        
-        saveAction.isEnabled = false
-        alert.addTextField { textField in
-            symbolTextField = textField
-            textField.placeholder = "Ticker".localized
-        }
-        alert.addTextField { textField in
-            countTextField = textField
-            textField.placeholder = "Amount".localized
-        }
-        
-        alert.addTextField { textField in
-            priceTextField = textField
-            textField.placeholder = "Price".localized
-        }
-        
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: nil, queue: .main) {notif in
-            if let text = symbolTextField.text, !(text.trimmingCharacters(in: .whitespaces)).isEmpty, UInt(countTextField.text ?? "") != nil,  let price = Double(priceTextField.text ?? ""), price >= 0 {
-                saveAction.isEnabled = true
-            } else {
-                saveAction.isEnabled = false
-            }
-            
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    @objc
-    func add() {
+    func addShares() {
         let addShares = CompanyListViewController()
         addShares.isAddShares = true
         addShares.portfolio = portfolio
@@ -137,10 +92,6 @@ private extension PortfolioSharesViewController {
         }
         updateEditButtonState()
     }
-    
-//    func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio) {
-//        interactor?.addShare(symbol: symbol, count: count, purchasePrice: price, portfolio: portfolio)
-//    }
 }
 
 // MARK: - UITableViewDataSource
@@ -172,7 +123,7 @@ extension PortfolioSharesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { [weak self] (_, _, _) in
+        let deleteAction = UIContextualAction(style: .normal, title: "PortfolioShares_Delete".localized, handler: { [weak self] (_, _, _) in
             self?.deleteShare(at: indexPath)
         })
         deleteAction.backgroundColor = .red

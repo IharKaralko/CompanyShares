@@ -34,25 +34,22 @@ class CompanyDetailsViewController: UIViewController {
 
 private extension CompanyDetailsViewController {
     func navigationBarSetting() {
-        navigationItem.title = "Details".localized
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete".localized, style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.title = "CompanyDetails_Details".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "CompanyDetails_Delete".localized, style: .plain, target: self, action: #selector(addTapped))
     }
     
     @objc
     func addTapped() {
         guard let company = self.company else { return }
-        
-        let alertController = UIAlertController(title: "Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
-        
-        let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
-            self?.interactor?.remove(selectedCompany: company)
+        let alertController = UIAlertController(title: "CompanyDetails_Attention!".localized, message: "CompanyDetails_Remove_company?".localized, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "CompanyDetails_OK".localized, style: .default) {[weak self] action in
+            let request = CompanyDetails.Requst(company: company)
+            self?.interactor?.remove(request: request)
             self?.navigationController?.popViewController(animated: true)
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel)
+        let cancelAction = UIAlertAction(title: "CompanyDetails_Cancel".localized, style: .cancel)
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)
-        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -68,7 +65,7 @@ extension CompanyDetailsViewController: CompanyDetailsDisplayLogic {
     func displayNoData(viewModel: CompanyDetails.ViewModel) {
         DispatchQueue.main.async {
             self.nameLabel.text = viewModel.name
-            self.priceAndChangeLabel.text = "No data available".localized
+            self.priceAndChangeLabel.text = "CompanyDetails_No_data_available".localized
         }
     }
     

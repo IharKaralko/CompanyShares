@@ -15,7 +15,7 @@ class AddSharesPresenter {
     weak var viewController: AddSharesDisplayLogic?
 }
 
-// MARK: - CompanyCollectionPresentationLogic
+// MARK: - AddSharesPresentationLogic
 extension AddSharesPresenter: AddSharesPresentationLogic {
     func presentPrice(response: AddShares.Response) {
         let viewModel = AddShares.ViewModel(price: response.price)

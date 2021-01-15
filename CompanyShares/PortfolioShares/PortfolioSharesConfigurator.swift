@@ -19,7 +19,7 @@ class PortfolioSharesConfigurator {
         viewController.interactor = interactor
         interactor.presenter = presenter
         interactor.worker = worker
-        interactor.dataSourceOfShares = DataSourceOfShare()
+        interactor.dataSourceOfShare = DataSourceOfShare()
         presenter.viewController = viewController
     }
 }

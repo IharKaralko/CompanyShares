@@ -16,10 +16,9 @@ protocol PortfolioListBusinessLogic: class {
 
 class PortfolioListInteractor {
     var presenter: PortfolioListPresentationLogic?
-   // var worker: PortfolioListWorkingLogic?
     var worker: CompanyDetailsWorkingLogic?
     var dataSourceOfPortfolio: DataSourceOfPortfolioProtocol?
-    var dataSourceOfShares: DataSourceOfShareProtocol?
+    var dataSourceOfShare: DataSourceOfShareProtocol?
 }
 
 // MARK: - PortfolioListBusinessLogic
@@ -30,8 +29,8 @@ extension PortfolioListInteractor: PortfolioListBusinessLogic {
         let userListDispatchGroup = DispatchGroup()
         
         for portfolio in portfolios {
-            let shares = dataSourceOfShares?.getShares(portfolio: portfolio)
-            let purchasePrice = shares?.reduce(0) { $0 + $1.purchasePrice * Double($1.count)} ?? 0
+            let shares = dataSourceOfShare?.getShares(portfolio: portfolio)
+            let purchasePrice = shares?.reduce(0) { $0 + $1.purchasePrice * Double($1.amount)} ?? 0
             var currentPrice: Double = 0
             if let shares = shares {
                 userListDispatchGroup.enter()
@@ -43,8 +42,8 @@ extension PortfolioListInteractor: PortfolioListBusinessLogic {
                 }
             }
         }
-        userListDispatchGroup.notify(queue: .main) {
-            self.presenter?.presentPortfolios(responses)
+        userListDispatchGroup.notify(queue: .main) { [weak self] in
+            self?.presenter?.presentPortfolios(responses)
         }
     }
     
@@ -68,25 +67,18 @@ private extension PortfolioListInteractor {
         for share in shares {
             guard let symbol = share.symbol, let date = share.date else { return }
             if Date().timeIntervalSince(date) > 300 {
-            userListDispatchGroup.enter()
+                userListDispatchGroup.enter()
                 worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
                     if let details = details {
                         share.currentPrice = Double(details.price) ?? 0
-                        self?.dataSourceOfShares?.update(share: share, currentPrice: share.currentPrice, date: Date())
+                        self?.dataSourceOfShare?.update(share: share, currentPrice: share.currentPrice, date: Date())
                     }
-                    //  worker?.fetchPrice(keyword: symbol) {
-//                price, error in
-//                if let currentPrice = price {
-//                    share.currentPrice = currentPrice.price
-//                } else {
-//                    share.currentPrice = 0
-//                }
-                userListDispatchGroup.leave()
+                    userListDispatchGroup.leave()
+                }
             }
         }
-        }
         userListDispatchGroup.notify(queue: .main) {
-            let currentPrice = shares.reduce(0) { $0 + $1.currentPrice * Double($1.count) }
+            let currentPrice = shares.reduce(0) { $0 + $1.currentPrice * Double($1.amount) }
             completion(currentPrice)
         }
     }

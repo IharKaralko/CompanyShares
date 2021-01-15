@@ -22,14 +22,11 @@ private extension CompanyTabBarController {
         let portfolioList = PortfolioListViewController()
         
         let navControllerInterest = UINavigationController(rootViewController: companyList)
-        navControllerInterest.tabBarItem = UITabBarItem(title: "Interests", image: UIImage(named: "interests"), selectedImage: nil )
-        
+        navControllerInterest.tabBarItem = UITabBarItem(title: "CompanyTabBar_Interests".localized, image: UIImage(named: "interests"), selectedImage: nil )
         let navControllerPortfolios = UINavigationController(rootViewController: portfolioList)
-        navControllerPortfolios.tabBarItem = UITabBarItem(title: "Portfolios", image: UIImage(named: "portfolio"), selectedImage: nil )
-        
+        navControllerPortfolios.tabBarItem = UITabBarItem(title: "CompanyTabBar_Portfolios".localized, image: UIImage(named: "portfolio"), selectedImage: nil )
         let navControllerSettings = UINavigationController(rootViewController: companyDetails)
-        navControllerSettings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "setting"), selectedImage: nil )
-        
+        navControllerSettings.tabBarItem = UITabBarItem(title: "CompanyTabBar_Settings".localized, image: UIImage(named: "setting"), selectedImage: nil )
         viewControllers = [navControllerInterest, navControllerPortfolios, navControllerSettings]
         tabBar.barTintColor = .red
         tabBar.tintColor = .black

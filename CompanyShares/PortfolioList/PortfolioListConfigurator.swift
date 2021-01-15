@@ -14,7 +14,7 @@ class PortfolioListConfigurator {
         let viewController = view
         let interactor = PortfolioListInteractor()
         let presenter = PortfolioListPresenter()
-        let worker = CompanyDetailsWorker() //PortfolioListWorker()
+        let worker = CompanyDetailsWorker()
         let router = PorfolioListRouter()
         
         viewController.interactor = interactor
@@ -22,7 +22,7 @@ class PortfolioListConfigurator {
         interactor.presenter = presenter
         interactor.worker = worker
         interactor.dataSourceOfPortfolio = DataSourceOfPortfolio()
-        interactor.dataSourceOfShares = DataSourceOfShare()
+        interactor.dataSourceOfShare = DataSourceOfShare()
         presenter.viewController = viewController
     }
 }

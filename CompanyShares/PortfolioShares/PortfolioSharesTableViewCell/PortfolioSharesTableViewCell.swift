@@ -31,8 +31,8 @@ extension PortfolioSharesTableViewCell {
         symbolLabel.text = shareWithPrices.share.symbol
         totalCurrentPrice.attributedText = shareWithPrices.totalPriceAndChange
         purchaseLabel.text = String(format: "%.2f", shareWithPrices.share.purchasePrice)
-        countLabel.text = String(shareWithPrices.share.count)
-        let totalPurchase = shareWithPrices.share.purchasePrice * Double(shareWithPrices.share.count)
+        countLabel.text = String(shareWithPrices.share.amount)
+        let totalPurchase = shareWithPrices.share.purchasePrice * Double(shareWithPrices.share.amount)
         totalPurchaseLabel.text = String(format: "%.2f", totalPurchase)
         currentPriceLabel.attributedText = shareWithPrices.priceAndChange
     }
@@ -40,9 +40,9 @@ extension PortfolioSharesTableViewCell {
 
 private extension PortfolioSharesTableViewCell {
     func setNamesForLabel() {
-        purchaseNameLabel.text = "Purchase:".localized
-        countNameLabel.text = "Amount:".localized
-        currentPriceNameLabel.text = "Current price:".localized
-        totalNameLabel.text = "Total:".localized
+        purchaseNameLabel.text = "PortfolioShares_Purchase:".localized
+        countNameLabel.text = "PortfolioShares_Amount:".localized
+        currentPriceNameLabel.text = "PortfolioShares_Current_price:".localized
+        totalNameLabel.text = "PortfolioShares_Total:".localized
     }
 }

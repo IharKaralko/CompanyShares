@@ -5,34 +5,53 @@
   Created by Ihar_Karalko on 11/29/20.
   
 */
-"Company Share" = "Company Share";
-"Input ticker or name company" = "Input ticker or name company";
-"Attention!" = "Attention!!";
-"Remove company?" = "Remove company?";
-"OK" = "ОК";
-"Cancel" = "Cancel";
-"No data available" = "No data available";
-"Open:" = "Open:";
-"Previos close:" = "Previos close:";
-"High:" = "High:";
-"Low:" = "Low:";
-"Volume:" = "Volume:";
-"Delete" = "Delete";
-"Details" = "Details";
-"Portfolios" = "Portfolios";
-"Add" = "Add";
-"New Portfolio" = "New Portfolio";
-"Enter a name for this portfolio" = "Enter a name for this portfolio";
-"Save" = "Save";
-"Name" = "Name";
-"Edit Portfolio" = "Edit Portfolio";
-"Update" = "Update";
-"Purchase:" = "Purchase:";
-"Amount:" = "Amount:";
-"Current price:" = "Current price:";
-"Total:" = "Total:";
-"Ticker" = "Ticker";
-"Amount" = "Amount";
-"Price" = "Price";
-"Not available" = "Not available";
-"Enter new shares details" = "Enter new shares details";
+"AddShares_Not_available" = "Not available";
+"AddShares_Ticker" = "Ticker";
+"AddShares_Amount" = "Amount";
+"AddShares_Price" = "Price";
+"AddShares_Enter_new_shares_details" = "Enter new shares details";
+"AddShares_Save" = "Save";
+
+"CompanyList_Add_Shares" = "Add Shares";
+"CompanyList_Company_Shares" = "Company Share";
+"CompanyList_Input_ticker_or_name_company" = "Input ticker or name company";
+
+"CompanyCollection_Attention!" = "Attention!";
+"CompanyCollection_Remove company?" = "Remove company?";
+"CompanyCollection_OK" = "ОК";
+"CompanyCollection_Cancel" = "Cancel";
+
+"CompanyDetails_Details" = "Details";
+"CompanyDetails_Attention!" = "Attention!";
+"CompanyDetails_Remove_company?" = "Remove company?";
+"CompanyDetails_OK" = "ОК";
+"CompanyDetails_Cancel" = "Cancel";
+"CompanyDetails_Delete" = "Delete";
+"CompanyDetails_No_data_available" = "No data available";
+"CompanyDetails_Open:" = "Open:";
+"CompanyDetails_Previos_close:" = "Previos close:";
+"CompanyDetails_High:" = "High:";
+"CompanyDetails_Low:" = "Low:";
+"CompanyDetails_Volume:" = "Volume:";
+
+"CompanyTabBar_Interests" = "Interests";
+"CompanyTabBar_Portfolios" = "Portfolios";
+"CompanyTabBar_Settings" = "Settings";
+
+"PortfolioList_Portfolios" = "Portfolios";
+"PortfolioList_Add" = "Add";
+"PortfolioList_New_Portfolio" = "New Portfolio";
+"PortfolioList_Save" = "Save";
+"PortfolioList_Edit_Portfolio" = "Edit Portfolio";
+"PortfolioList_Update" = "Update";
+"PortfolioList_Enter_a_name_for_this_portfolio" = "Enter a name for this portfolio";
+"PortfolioList_Cancel" = "Cancel";
+"PortfolioList_Name" = "Name";
+"PortfolioList_Delete" = "Delete";
+
+"PortfolioShares_Purchase:" = "Purchase:";
+"PortfolioShares_Amount:" = "Amount:";
+"PortfolioShares_Current_price:" = "Current price:";
+"PortfolioShares_Total:" = "Total:";
+"PortfolioShares_Delete" = "Delete";
+"PortfolioShares_Add" = "Add";

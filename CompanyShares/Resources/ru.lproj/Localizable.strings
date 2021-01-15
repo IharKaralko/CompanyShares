@@ -5,41 +5,53 @@
   Created by Ihar_Karalko on 11/29/20.
   
 */
- 
-/* CompanyList */
-"Company Shares" = "Акции";
+"AddShares_Ticker" = "Тикер";
+"AddShares_Amount" = "Количество";
+"AddShares_Price" = "Цена";
+"AddShares_Not_available" = "Не доступна";
+"AddShares_Enter_new_shares_details" = "Введите данные о новых акциях";
+"AddShares_Save" = "Сохранить";
 
-/* rrr */
-"Company Shares" = "Акции компаний";
+"CompanyList_Add_Shares" = "Добавить акции";
+"CompanyList_Company_Shares" = "Акции компаний";
+"CompanyList_Input_ticker_or_name_company" = "Введите тикер или название компании";
 
-"Input ticker or name company" = "Введите тикер или название компании";
-"Attention!" = "Внимание!";
-"Remove company?" = "Удалить компанию?";
-"OK" = "ОК";
+"CompanyCollection_Attention!" = "Внимание!";
+"CompanyCollection_Remove company?" = "Удалить компанию?";
+"CompanyCollection_OK" = "ОК";
+"CompanyCollection_Cancel" = "Отменить";
 
-"Cancel" = "Отменить";
-"No data available" = "Данные недоступны";
-"Open:" = "Открытие:";
-"Previos close:" = "Предыдущее закрытие:";
-"High:" = "Высокий:";
-"Low:" = "Низкий:";
-"Volume:" = "Объем:";
-"Delete" = "Удалить";
-"Details" = "Подробно";
-"Portfolios" = "Портфели";
-"Add" = "Добавить";
-"New Portfolio" = "Новый портфель";
-"Enter a name for this portfolio" = "Введите имя этого портфеля";
-"Save" = "Сохранить";
-"Name" = "Имя";
-"Edit Portfolio" = "Править портфель";
-"Update" = "Обновить";
-"Purchase:" = "Покупка:";
-"Amount:" = "Количество:";
-"Current price:" = "Текущая цена:";
-"Total:" = "Итого:";
-"Ticker" = "Тикер";
-"Amount" = "Количество";
-"Price" = "Цена";
-"Not available" = "Не доступна";
-"Enter new shares details" = "Введите данные о новых акциях";
+"CompanyDetails_Details" = "Удалить";
+"CompanyDetails_Attention!" = "Внимание!";
+"CompanyDetails_Remove_company?" = "Удалить компанию?";
+"CompanyDetails_OK" = "ОК";
+"CompanyDetails_Cancel" = "Отменить";
+"CompanyDetails_Delete" = "Удалить";
+"CompanyDetails_No_data_available" = "Данные недоступны";
+"CompanyDetails_Open:" = "Открытие:";
+"CompanyDetails_Previos_close:" = "Предыдущее закрытие:";
+"CompanyDetails_High:" = "Высокий:";
+"CompanyDetails_Low:" = "Низкий:";
+"CompanyDetails_Volume:" = "Объем:";
+
+"CompanyTabBar_Interests" = "Интересы";
+"CompanyTabBar_Portfolios" = "Портфели";
+"CompanyTabBar_Settings" = "Настройки";
+
+"PortfolioList_Portfolios" = "Портфели";
+"PortfolioList_Add" = "Добавить";
+"PortfolioList_New_Portfolio" = "Новый портфель";
+"PortfolioList_Save" = "Сохранить";
+"PortfolioList_Edit_Portfolio" = "Править портфель";
+"PortfolioList_Update" = "Обновить";
+"PortfolioList_Enter_a_name_for_this_portfolio" = "Введите имя этого портфеля";
+"PortfolioList_Cancel" = "Отменить";
+"PortfolioList_Name" = "Имя";
+"PortfolioList_Delete" = "Удалить";
+
+"PortfolioShares_Purchase:" = "Покупка:";
+"PortfolioShares_Amount:" = "Количество:";
+"PortfolioShares_Current_price:" = "Текущая цена:";
+"PortfolioShares_Total:" = "Итого:";
+"PortfolioShares_Delete" = "Удалить";
+"PortfolioShares_Add" = "Добавить";

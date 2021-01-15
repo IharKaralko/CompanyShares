@@ -10,9 +10,9 @@ import CoreData
 
 protocol DataSourceOfShareProtocol: class {
     func getShares(portfolio: Portfolio) -> [Share]
-    func createShare(name: String, count: Int64, purchasePrice: Double, currentPrice: Double, portfolio: Portfolio)
     func remove(share: Share)
     func update(share: Share, currentPrice: Double, date: Date)
+    func createShare(_ newShare: NewShare)
 }
 
 class DataSourceOfShare {
@@ -38,15 +38,15 @@ extension DataSourceOfShare: DataSourceOfShareProtocol {
         return shares
     }
     
-    func createShare(name: String, count: Int64, purchasePrice: Double, currentPrice: Double, portfolio: Portfolio) {
+    func createShare(_ newShare: NewShare) {
         let share = Share(context: context)
         share.id = UUID().uuidString
-        share.symbol = name
-        share.count = count
-        share.purchasePrice = purchasePrice
-        share.currentPrice = currentPrice
+        share.symbol = newShare.symbol
+        share.amount = newShare.amount
+        share.purchasePrice = newShare.purchasePrice
+        share.currentPrice = newShare.currentPrice
         share.date = Date()
-        share.portfolio = portfolio
+        share.portfolio = newShare.portfolio
         CoreDataManager.instance.saveContext()
     }
     

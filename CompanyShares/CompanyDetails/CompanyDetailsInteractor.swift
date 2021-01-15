@@ -9,7 +9,7 @@ import Foundation
 
 protocol CompanyDetailsBusinessLogic: class {
     func fetchDetail(request: CompanyDetails.Requst)
-    func remove(selectedCompany: SelectedCompany)
+    func remove(request: CompanyDetails.Requst)
 }
 
 class CompanyDetailsInteractor {
@@ -33,7 +33,7 @@ extension CompanyDetailsInteractor: CompanyDetailsBusinessLogic {
         }
     }
     
-    func remove(selectedCompany: SelectedCompany) {
-        dataSourceOfSelectedCompany?.remove(selectedCompany: selectedCompany)
+    func remove(request: CompanyDetails.Requst) {
+        dataSourceOfSelectedCompany?.remove(selectedCompany: request.company)
     }
 }

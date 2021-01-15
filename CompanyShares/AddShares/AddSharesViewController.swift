@@ -10,8 +10,8 @@ import UIKit
 protocol AddSharesDisplayLogic: class {
     func displayPrice(viewModel: AddShares.ViewModel)
 }
+
 protocol AddSharesViewControllerProtocol: class {
-  //  var routerDelegate: CompanyListRouterProtocol? { set get }
     func addShares(company: Company)
 }
 
@@ -24,6 +24,7 @@ class AddSharesViewController: UIViewController {
     @IBOutlet private weak var amountTextField: UITextField!
     @IBOutlet private weak var priceTextField: UITextField!
     @IBOutlet private weak var saveButton: UIButton!
+    private var currentPrice: Double = 0
     
     var interactor: AddSharesBusinessLogic?
     var portfolio: Portfolio?
@@ -38,33 +39,30 @@ class AddSharesViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) { NotificationCenter.default.removeObserver(self)
     }
-    
-    @IBAction func saveAction(_ sender: UIButton) {
-        guard let portfolio = portfolio,
-        let symbol = symbolLabel.text,
-        let amount = Int64(amountTextField.text ?? ""),
-        let price = Double(priceTextField.text ?? "") else { return  }
-        interactor?.addShare(symbol: symbol, count: amount, price: price, portfolio: portfolio)
-       DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            self.routerDelegate?.popVC()
-        }
-      //  routerDelegate?.popVC()
-        
-    }
 }
 
-
-
-extension AddSharesViewController {
+private extension AddSharesViewController {
+    @IBAction func saveAction(_ sender: UIButton) {
+        guard let portfolio = portfolio,
+              let symbol = symbolLabel.text,
+              let amount = Int64(amountTextField.text ?? ""),
+              let price = Double(priceTextField.text ?? "") else { return  }
+        let newShare = NewShare(symbol: symbol, amount: amount, purchasePrice: price, currentPrice: currentPrice, portfolio: portfolio)
+        let request = AddShares.Requst(newShare: newShare)
+        interactor?.addShare(request: request)
+        routerDelegate?.popVC()
+    }
+    
     func setLabels() {
-        infoLabel.text = "Enter new shares details".localized
-        tickerLabel.text = "Ticker".localized
-        amountLabel.text = "Amount".localized
-        priceLabel.text = "Price".localized
+        infoLabel.text = "AddShares_Enter_new_shares_details".localized
+        tickerLabel.text = "AddShares_Ticker".localized
+        amountLabel.text = "AddShares_Amount".localized
+        priceLabel.text = "AddShares_Price".localized
     }
     
     func setSaveButton() {
         saveButton.layer.cornerRadius = 10
+        saveButton.setTitle("AddShares_Save".localized, for: .normal)
         
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: nil, queue: .main) { [weak self] notif in
             if let amount = Int(self?.amountTextField.text ?? ""), amount > 0, let price = Double(self?.priceTextField.text ?? ""), price > 0, let symbol = self?.symbolLabel.text, !symbol.isEmpty {
@@ -87,6 +85,9 @@ extension AddSharesViewController: AddSharesViewControllerProtocol {
 // MARK: - AddSharesDisplayLogic
 extension AddSharesViewController: AddSharesDisplayLogic {
     func displayPrice(viewModel: AddShares.ViewModel) {
-        DispatchQueue.main.async {self.priceTextField.text = viewModel.price}
+        DispatchQueue.main.async { [weak self] in
+            self?.priceTextField.text = viewModel.price
+            self?.currentPrice = Double(viewModel.price) ?? 0
+        }
     }
 }

@@ -46,7 +46,8 @@ class CompanyListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) { NotificationCenter.default.removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -64,7 +65,6 @@ private extension CompanyListViewController {
             child.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         child.didMove(toParent: self)
-        
     }
  
     func setChild() {
@@ -92,11 +92,10 @@ private extension CompanyListViewController {
     
     func navigationBarSetting() {
         guard let isAddShares = isAddShares else { return }
-        navigationItem.title = isAddShares ? "Add Shares".localized : NSLocalizedString("Company Shares", comment: "CompanyList")
+        navigationItem.title = isAddShares ? "CompanyList_Add_Shares".localized : "CompanyList_Company_Shares".localized
         navigationController?.navigationBar.barTintColor = UIColor.red
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = UIColor.black
-        
     }
     
     func delegatesRegistration() {
@@ -109,7 +108,7 @@ private extension CompanyListViewController {
         searchBar.tintColor = UIColor.white
         searchBar.barTintColor = UIColor.red
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.placeholder = "Input ticker or name company".localized
+        searchBar.placeholder = "CompanyList_Input_ticker_or_name_company".localized
     }
     
     func tableCellRegistration() {
@@ -173,7 +172,7 @@ extension CompanyListViewController: UITableViewDelegate {
         if isAddShares {
             childAddSharesViewController?.addShares(company: company)
         } else {
-            childCollectionViewController?.addCompany(company: company)
+            childCollectionViewController?.addCompany(company)
         }
         searchBar.showsCancelButton = false
         finishSearch()
@@ -188,7 +187,9 @@ extension CompanyListViewController: UITableViewDelegate {
 extension CompanyListViewController: CompanyListDisplayLogic {
     func displayPossibleOptions(viewModel: CompanyList.ViewModel) {
         possibleOptions = viewModel.companies.sorted(by: { $0.symbol < $1.symbol })
-        DispatchQueue.main.async { self.tableView.reloadData() }
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }
 

@@ -9,45 +9,30 @@ import Foundation
 
 protocol AddSharesBusinessLogic: class {
     func loadPrice(symbol: String)
-    func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio)
+    func addShare(request: AddShares.Requst)
 }
 
 class AddSharesInteractor {
     var presenter: AddSharesPresentationLogic?
-    let cache = NSCache<NSString, CurrentPrice>()
     var worker: CompanyDetailsWorkingLogic?
-    var dataSourceOfShares: DataSourceOfShareProtocol?
+    var dataSourceOfShare: DataSourceOfShareProtocol?
 }
 
 // MARK: - AddSharesBusinessLogic
 extension AddSharesInteractor: AddSharesBusinessLogic {
-    func addShare(symbol: String, count: Int64, price: Double, portfolio: Portfolio) {
-        var currentPrice: Double = 0
-        worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
-            if let details = details {
-                currentPrice = Double(details.price) ?? 0
-            }
-            self?.dataSourceOfShares?.createShare(name: symbol, count: count, purchasePrice: price, currentPrice: currentPrice, portfolio: portfolio)
-        }
+    func addShare(request: AddShares.Requst) {
+        dataSourceOfShare?.createShare(request.newShare)
     }
     
     func loadPrice(symbol: String) {
-        if let currentPrice = cache.object(forKey: symbol as NSString), currentPrice.date.timeIntervalSince(Date()) < 600 {
-            let response = AddShares.Response(price: currentPrice.price)
-            print(symbol)
-            presenter?.presentPrice(response: response)
+        worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
+            let response: AddShares.Response
+            if let details = details {
+                response = AddShares.Response(price: details.price)
+                self?.presenter?.presentPrice(response: response)
             } else {
-            worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
-                let response: AddShares.Response
-                if let details = details {
-                    response = AddShares.Response(price: details.price)
-                    let currentPrice = CurrentPrice(price: details.price)
-                    self?.cache.setObject(currentPrice, forKey: symbol as NSString)
-                    self?.presenter?.presentPrice(response: response)
-                } else {
-                    response =  AddShares.Response(price: "Not available".localized)
-                    self?.presenter?.presentPrice(response: response)
-                }
+                response =  AddShares.Response(price: "AddShares_Not_available".localized)
+                self?.presenter?.presentPrice(response: response)
             }
         }
     }

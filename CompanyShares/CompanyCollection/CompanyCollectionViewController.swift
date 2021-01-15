@@ -12,8 +12,7 @@ protocol CompanyCollectionDisplayLogic: class {
 }
 
 protocol CompanyCollectionViewControllerProtocol: class {
-    var routerDelegate: CompanyListRouterProtocol? { set get }
-    func addCompany(company: Company)
+    func addCompany(_ company: Company)
 }
 
 class CompanyCollectionViewController: UIViewController {
@@ -32,6 +31,7 @@ class CompanyCollectionViewController: UIViewController {
         collectionCellRegistration()
         longPressSetting()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         interactor?.loadCompanyList()
     }
@@ -64,13 +64,13 @@ private extension CompanyCollectionViewController {
         let point = longPressGR.location(in: self.collectionView)
         let indexPath = self.collectionView.indexPathForItem(at: point)
         if let indexPath = indexPath {
-            let alertController = UIAlertController(title:"Attention!".localized, message: "Remove company?".localized, preferredStyle: .alert)
+            let alertController = UIAlertController(title:"CompanyCollection_Attention!".localized, message: "CompanyCollection_Remove company?".localized, preferredStyle: .alert)
             
-            let confirmAction = UIAlertAction(title: "OK".localized, style: .default) {[weak self] action in
+            let confirmAction = UIAlertAction(title: "CompanyCollection_OK".localized, style: .default) {[weak self] action in
                 guard let company = self?.companies[indexPath.row] else { return }
                 self?.interactor?.remove(selectedCompany: company)
             }
-            let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel)
+            let cancelAction = UIAlertAction(title: "CompanyCollection_Cancel".localized, style: .cancel)
             alertController.addAction(cancelAction)
             alertController.addAction(confirmAction)
             self.present(alertController, animated: true, completion: nil)
@@ -129,7 +129,7 @@ extension CompanyCollectionViewController: UICollectionViewDelegate {
 
 // MARK: - CompanyCollectionViewControllerProtocol
 extension CompanyCollectionViewController: CompanyCollectionViewControllerProtocol {
-    func addCompany(company: Company) {
+    func addCompany(_ company: Company) {
         interactor?.add(company: company)
     }
 }

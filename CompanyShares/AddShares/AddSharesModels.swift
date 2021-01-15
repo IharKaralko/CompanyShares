@@ -9,7 +9,7 @@ import Foundation
 
 enum  AddShares {
     struct Requst {
-        let symbol: String
+        let newShare: NewShare
     }
     
     struct Response {

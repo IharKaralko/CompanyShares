@@ -16,6 +16,7 @@ class CompanyDetailsPresenter {
     weak var viewController: CompanyDetailsDisplayLogic?
 }
 
+// MARK: - CompanyDetailsPresentationLogic
 extension CompanyDetailsPresenter: CompanyDetailsPresentationLogic {
     func presentNoData(response: CompanyDetails.Response) {
         let name = getNameAndSymbol(response.company)
@@ -27,11 +28,11 @@ extension CompanyDetailsPresenter: CompanyDetailsPresentationLogic {
         let name = getNameAndSymbol(response.company)
         guard let details = response.details else { return }
         let price = getAttributedString(details: details)
-        let open = "Open:".localized + "  " + details.open
-        let previosClose = "Previos close:".localized + "  " + details.previosClose
-        let high = "High:".localized + "  " + details.high
-        let low = "Low:".localized + "  " + details.low
-        let volume = "Volume:".localized + "  " + details.volume
+        let open = "CompanyDetails_Open:".localized + "  " + details.open
+        let previosClose = "CompanyDetails_Previos_close:".localized + "  " + details.previosClose
+        let high = "CompanyDetails_High:".localized + "  " + details.high
+        let low = "CompanyDetails_Low:".localized + "  " + details.low
+        let volume = "CompanyDetails_Volume:".localized + "  " + details.volume
         
         let viewModel = CompanyDetails.ViewModel(name: name, companyResult: CompanyResult(priceAndChange: price, open: open, previosClose: previosClose, high: high, low: low, volume: volume))
         viewController?.displayDetails(viewModel: viewModel)
