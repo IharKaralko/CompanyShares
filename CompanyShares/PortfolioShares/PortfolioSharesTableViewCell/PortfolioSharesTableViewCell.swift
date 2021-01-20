@@ -18,16 +18,22 @@ class PortfolioSharesTableViewCell: UITableViewCell {
     @IBOutlet private weak var countLabel: UILabel!
     @IBOutlet private weak var totalPurchaseLabel: UILabel!
     @IBOutlet private weak var currentPriceLabel: UILabel!
+    @IBOutlet private weak var sellButton: UIButton!
+    
+    var shareWithPrices: ShareWithPrices?
+    var cellDelegate: PortfolioSharesViewControllerProtocol?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 0.5
         setNamesForLabel()
+        setSellButton()
     }
 }
 
 extension PortfolioSharesTableViewCell {
-    func configure(shareWithPrices: ShareWithPrices) {
+    func configure() {
+        guard let shareWithPrices = shareWithPrices else { return }
         symbolLabel.text = shareWithPrices.share.symbol
         totalCurrentPrice.attributedText = shareWithPrices.totalPriceAndChange
         purchaseLabel.text = String(format: "%.2f", shareWithPrices.share.purchasePrice)
@@ -39,10 +45,19 @@ extension PortfolioSharesTableViewCell {
 }
 
 private extension PortfolioSharesTableViewCell {
+    @IBAction func pressSellButton(_ sender: UIButton) {
+        guard let shareWithPrices = shareWithPrices else { return }
+        cellDelegate?.sellShare(shareWithPrices)
+    }
+    
     func setNamesForLabel() {
         purchaseNameLabel.text = "PortfolioShares_Purchase:".localized
         countNameLabel.text = "PortfolioShares_Amount:".localized
         currentPriceNameLabel.text = "PortfolioShares_Current_price:".localized
         totalNameLabel.text = "PortfolioShares_Total:".localized
+    }
+    func setSellButton() {
+        sellButton.layer.cornerRadius = 8
+        sellButton.setTitle("PortfolioShares_Sell".localized, for: .normal)
     }
 }

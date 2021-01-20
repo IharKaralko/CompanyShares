@@ -23,7 +23,7 @@ class CompanyListViewController: UIViewController {
     
     private var possibleOptions = [Company]()
     private var childCollectionViewController: CompanyCollectionViewControllerProtocol?
-    private var childAddSharesViewController: AddSharesViewControllerProtocol?
+    private var childAddSharesViewController: BuyAndSellSharesViewControllerProtocol?
     private let heightTableViewRow: CGFloat = 48
     
     var interactor: CompanyListBusinessLogic?
@@ -70,8 +70,9 @@ private extension CompanyListViewController {
     func setChild() {
         guard let isAddShares = isAddShares else { return }
         if isAddShares {
-            let child = AddSharesViewController()
+            let child = BuyAndSellSharesViewController()
             child.portfolio = portfolio
+            child.isSellShare = false
             addChildToConteiner(child)
             child.routerDelegate = self
             childAddSharesViewController = child
@@ -105,7 +106,7 @@ private extension CompanyListViewController {
     
     func searchBarSetting() {
         searchBar.delegate = self
-        searchBar.tintColor = UIColor.white
+        searchBar.tintColor = UIColor.black
         searchBar.barTintColor = UIColor.red
         searchBar.searchTextField.backgroundColor = .white
         searchBar.placeholder = "CompanyList_Input_ticker_or_name_company".localized

@@ -34,8 +34,8 @@ extension PortfolioListInteractor: PortfolioListBusinessLogic {
             var currentPrice: Double = 0
             if let shares = shares {
                 userListDispatchGroup.enter()
-                getCurrentPrice(shares: shares) { current in
-                    currentPrice = current
+                worker?.getCurrentPrice(shares: shares) {
+                    currentPrice = shares.reduce(0) { $0 + $1.currentPrice * Double($1.amount) }
                     let response = PortfolioList.Response(portfolio: portfolio, purchasePrice: purchasePrice, currentPrice: currentPrice)
                     responses.append(response)
                     userListDispatchGroup.leave()
@@ -58,28 +58,5 @@ extension PortfolioListInteractor: PortfolioListBusinessLogic {
     
     func update(portfolio: Portfolio, name: String) {
         dataSourceOfPortfolio?.update(portfolio: portfolio, name: name)
-    }
-}
-
-private extension PortfolioListInteractor {
-    func getCurrentPrice(shares: [Share], completion: @escaping (Double) -> Void) {
-        let userListDispatchGroup = DispatchGroup()
-        for share in shares {
-            guard let symbol = share.symbol, let date = share.date else { return }
-            if Date().timeIntervalSince(date) > 300 {
-                userListDispatchGroup.enter()
-                worker?.fetchDetails(keyword: symbol) { [weak self] details, error in
-                    if let details = details {
-                        share.currentPrice = Double(details.price) ?? 0
-                        self?.dataSourceOfShare?.update(share: share, currentPrice: share.currentPrice, date: Date())
-                    }
-                    userListDispatchGroup.leave()
-                }
-            }
-        }
-        userListDispatchGroup.notify(queue: .main) {
-            let currentPrice = shares.reduce(0) { $0 + $1.currentPrice * Double($1.amount) }
-            completion(currentPrice)
-        }
     }
 }

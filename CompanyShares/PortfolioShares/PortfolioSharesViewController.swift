@@ -11,6 +11,11 @@ protocol PortfolioSharesDisplayLogic: class {
     func displayShares(viewModel: PortfolioShares.ViewModel)
 }
 
+protocol PortfolioSharesViewControllerProtocol: class {
+    func sellShare(_ share: ShareWithPrices)
+}
+
+
 class PortfolioSharesViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private var shares = [ShareWithPrices]()
@@ -55,12 +60,12 @@ private extension PortfolioSharesViewController {
         navigationController?.toolbar.tintColor = UIColor.black
         navigationController?.toolbar.barTintColor = #colorLiteral(red: 1, green: 0.7389495218, blue: 0.7303172605, alpha: 1)
         items.append( UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil) )
-        items.append(UIBarButtonItem(title: "PortfolioShares_Add".localized, style: .plain, target: self, action: #selector(addShares)))
+        items.append(UIBarButtonItem(title: "PortfolioShares_Buy".localized, style: .plain, target: self, action: #selector(buyShares)))
         self.toolbarItems = items
     }
     
     @objc
-    func addShares() {
+    func buyShares() {
         let addShares = CompanyListViewController()
         addShares.isAddShares = true
         addShares.portfolio = portfolio
@@ -105,8 +110,9 @@ extension PortfolioSharesViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PortfolioSharesTableViewCell else {
             fatalError("Cell with identifier: \(identifier) not found")
         }
-        let share = shares[indexPath.row]
-        cell.configure(shareWithPrices: share)
+        cell.shareWithPrices = shares[indexPath.row]
+        cell.configure()
+        cell.cellDelegate = self
         return cell
     }
     
@@ -137,5 +143,16 @@ extension PortfolioSharesViewController: PortfolioSharesDisplayLogic {
         shares = viewModel.shares
         tableView.reloadData()
         updateEditButtonState()
+    }
+}
+
+// MARK: - PortfolioSharesViewControllerProtocol
+extension PortfolioSharesViewController: PortfolioSharesViewControllerProtocol {
+    func sellShare(_ share: ShareWithPrices) {
+        let addShares = BuyAndSellSharesViewController()
+        addShares.portfolio = portfolio
+        addShares.isSellShare = true
+        addShares.shareWithPrices = share
+        navigationController?.pushViewController(addShares, animated: true)
     }
 }

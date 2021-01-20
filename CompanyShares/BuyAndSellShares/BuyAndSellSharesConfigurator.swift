@@ -1,5 +1,5 @@
 //
-//  AddSharesConfigurator.swift
+//  BuyAndSellSharesConfigurator.swift
 //  CompanyShares
 //
 //  Created by Ihar_Karalko on 1/11/21.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-class AddSharesConfigurator {
-    static let shared = AddSharesConfigurator()
+class BuyAndSellSharesConfigurator {
+    static let shared = BuyAndSellSharesConfigurator()
     
-    func configure(with view: AddSharesViewController) {
+    func configure(with view: BuyAndSellSharesViewController) {
         let viewController = view
-        let interactor = AddSharesInteractor()
-        let presenter = AddSharesPresenter()
+        let interactor = BuyAndSellSharesInteractor()
+        let presenter = BuyAndSellSharesPresenter()
         let worker = CompanyDetailsWorker()
         
         viewController.interactor = interactor

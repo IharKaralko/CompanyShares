@@ -80,6 +80,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAW-RP-QvO">
+                        <rect key="frame" x="484" y="10" width="30" height="28"/>
+                        <color key="backgroundColor" red="1" green="0.73894952179999995" blue="0.73031726050000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="Sell">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="pressSellButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FxN-mP-wEU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="1" green="0.82940811699999994" blue="0.82077381000000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
@@ -107,6 +118,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" red="1" green="0.82940811699999994" blue="0.82077381000000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xAW-RP-QvO" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="10" id="0KT-KJ-7rG"/>
+                <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="xAW-RP-QvO" secondAttribute="trailing" constant="20" id="1Ft-q8-MiM"/>
+            </constraints>
             <connections>
                 <outlet property="countLabel" destination="oPX-aH-mog" id="aUX-kF-xtB"/>
                 <outlet property="countNameLabel" destination="4ST-aF-aOR" id="Rym-Nf-g6o"/>
@@ -114,6 +129,7 @@
                 <outlet property="currentPriceNameLabel" destination="mf7-Je-Rhe" id="8Su-OC-pdQ"/>
                 <outlet property="purchaseLabel" destination="20L-lT-YsK" id="a4F-W6-yiF"/>
                 <outlet property="purchaseNameLabel" destination="N5K-Kb-QTc" id="4DC-3s-dwp"/>
+                <outlet property="sellButton" destination="xAW-RP-QvO" id="zGR-Ap-0p5"/>
                 <outlet property="symbolLabel" destination="tBI-7o-o1W" id="C0I-xj-L2j"/>
                 <outlet property="totalCurrentPrice" destination="hln-Rm-oiE" id="3gM-Lf-3xy"/>
                 <outlet property="totalNameLabel" destination="bLJ-CE-2kd" id="nkA-P6-eVJ"/>

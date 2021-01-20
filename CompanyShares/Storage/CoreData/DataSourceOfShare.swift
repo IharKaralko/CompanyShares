@@ -11,7 +11,7 @@ import CoreData
 protocol DataSourceOfShareProtocol: class {
     func getShares(portfolio: Portfolio) -> [Share]
     func remove(share: Share)
-    func update(share: Share, currentPrice: Double, date: Date)
+    func update(share: Share, currentPrice: Double?, amount: Int64?)
     func createShare(_ newShare: NewShare)
 }
 
@@ -50,14 +50,20 @@ extension DataSourceOfShare: DataSourceOfShareProtocol {
         CoreDataManager.instance.saveContext()
     }
     
-    func update(share: Share, currentPrice: Double, date: Date) {
+    func update(share: Share, currentPrice: Double?, amount: Int64?) {
         let fetchRequest: NSFetchRequest<Share> = Share.fetchRequest()
         guard let id = share.id else { return }
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         if let result = try? context.fetch(fetchRequest) {
             if let objectToUpdate = result.first {
+                guard let currentPrice = currentPrice else {
+                    guard let amount = amount else { return }
+                    objectToUpdate.setValue(amount, forKey: "amount")
+                    CoreDataManager.instance.saveContext()
+                    return
+                }
                 objectToUpdate.setValue(currentPrice, forKey: "currentPrice")
-                objectToUpdate.setValue(date, forKey: "date")
+                objectToUpdate.setValue(Date(), forKey: "date")
                 CoreDataManager.instance.saveContext()
             }
         }

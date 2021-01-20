@@ -5,14 +5,16 @@
   Created by Ihar_Karalko on 11/29/20.
   
 */
-"AddShares_Not_available" = "Not available";
-"AddShares_Ticker" = "Ticker";
-"AddShares_Amount" = "Amount";
-"AddShares_Price" = "Price";
-"AddShares_Enter_new_shares_details" = "Enter new shares details";
-"AddShares_Save" = "Save";
+"BuyAndSellShares_Not_available" = "Not available";
+"BuyAndSellShares_Ticker" = "Ticker";
+"BuyAndSellShares_Amount" = "Amount";
+"BuyAndSellShares_Price" = "Price";
+"BuyAndSellShares_Enter_shares_details" = "Enter shares details";
+"BuyAndSellShares_Save" = "Save";
+"BuyAndSellShares_Result_of_operation" = "Result of operation:";
+"BuyAndSellShares_Share_Sale" = "Share Sale";
 
-"CompanyList_Add_Shares" = "Add Shares";
+"CompanyList_Add_Shares" = "Shares Purchase";
 "CompanyList_Company_Shares" = "Company Share";
 "CompanyList_Input_ticker_or_name_company" = "Input ticker or name company";
 
@@ -54,4 +56,5 @@
 "PortfolioShares_Current_price:" = "Current price:";
 "PortfolioShares_Total:" = "Total:";
 "PortfolioShares_Delete" = "Delete";
-"PortfolioShares_Add" = "Add";
+"PortfolioShares_Buy" = "Buy";
+"PortfolioShares_Sell" = "Sell";

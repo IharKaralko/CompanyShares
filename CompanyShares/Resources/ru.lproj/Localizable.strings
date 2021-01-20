@@ -5,14 +5,16 @@
   Created by Ihar_Karalko on 11/29/20.
   
 */
-"AddShares_Ticker" = "Тикер";
-"AddShares_Amount" = "Количество";
-"AddShares_Price" = "Цена";
-"AddShares_Not_available" = "Не доступна";
-"AddShares_Enter_new_shares_details" = "Введите данные о новых акциях";
-"AddShares_Save" = "Сохранить";
+"BuyAndSellShares_Ticker" = "Тикер";
+"BuyAndSellShares_Amount" = "Количество";
+"BuyAndSellShares_Price" = "Цена";
+"BuyAndSellShares_Not_available" = "Не доступна";
+"BuyAndSellShares_Enter_shares_details" = "Введите данные о акциях";
+"BuyAndSellShares_Save" = "Сохранить";
+"BuyAndSellShares_Result_of_operation" = "Результат операции:";
+"BuyAndSellShares_Share_Sale" = "Продажа акций";
 
-"CompanyList_Add_Shares" = "Добавить акции";
+"CompanyList_Add_Shares" = "Покупка акций";
 "CompanyList_Company_Shares" = "Акции компаний";
 "CompanyList_Input_ticker_or_name_company" = "Введите тикер или название компании";
 
@@ -54,4 +56,5 @@
 "PortfolioShares_Current_price:" = "Текущая цена:";
 "PortfolioShares_Total:" = "Итого:";
 "PortfolioShares_Delete" = "Удалить";
-"PortfolioShares_Add" = "Добавить";
+"PortfolioShares_Buy" = "Купить";
+"PortfolioShares_Sell" = "Продать";

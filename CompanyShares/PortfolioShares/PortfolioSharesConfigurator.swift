@@ -21,5 +21,6 @@ class PortfolioSharesConfigurator {
         interactor.worker = worker
         interactor.dataSourceOfShare = DataSourceOfShare()
         presenter.viewController = viewController
+        worker.dataSourceOfShare = DataSourceOfShare()
     }
 }
