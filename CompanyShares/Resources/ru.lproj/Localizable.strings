@@ -23,7 +23,7 @@
 "CompanyCollection_OK" = "ОК";
 "CompanyCollection_Cancel" = "Отменить";
 
-"CompanyDetails_Details" = "Удалить";
+"CompanyDetails_Details" = "Подробно";
 "CompanyDetails_Attention!" = "Внимание!";
 "CompanyDetails_Remove_company?" = "Удалить компанию?";
 "CompanyDetails_OK" = "ОК";
